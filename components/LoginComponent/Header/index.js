@@ -21,7 +21,7 @@ export default function Header() {
       />
     </View>
       <View style={styles.viewText}>
-        <Text style={styles.text}>Hi,{'\n'}Please Login</Text>
+        <Text style={styles.text}>Xin Chào,{'\n'}Mời  Đăng Nhập</Text>
       </View>
     </View>
   );

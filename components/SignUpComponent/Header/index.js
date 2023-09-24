@@ -30,7 +30,7 @@ export default function Header({navigation}) {
         <Icon style ={styles.icon_back} name='arrow-left' size={20} color={'#19AFDF'}> Login</Icon>
         </TouchableOpacity>
        
-        <Text style={styles.text}>Hi,{'\n'}Please SignUp</Text>
+        <Text style={styles.text}>Tạo{'\n'}Tài Khoản</Text>
       </View>
     </View>
   );
