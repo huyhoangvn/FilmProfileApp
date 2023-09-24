@@ -12,80 +12,80 @@ const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
-  function BottomTabs() {
-    var sizeIcon = 25;
-    var colorFocused = 'yellow';
-    var colorIcon = 'white';
+  // function BottomTabs() {
+  //   var sizeIcon = 25;
+  //   var colorFocused = 'black';
+  //   var colorIcon = 'white';
 
-    return (
-      <Tab.Navigator
-        barStyle={{ backgroundColor: '#6D736D' }}
-        activeColor={colorFocused}
-        inactiveColor={colorIcon}
-      >
-        <Tab.Screen
-          name="Home"
-          component={HomePage}
-          options={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              return (
-                <Icon
-                  name="home"
-                  color={focused ? colorFocused : colorIcon} // Thay đổi màu khi tab được chọn và không được chọn
-                  size={sizeIcon}
-                />
-              );
-            },
-          })}
-        />
-        <Tab.Screen
-          name="Friend"
-          component={FriendPage}
-          options={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              return (
-                <Icon
-                  name="group"
-                  color={focused ? colorFocused : colorIcon} // Thay đổi màu khi tab được chọn và không được chọn
-                  size={sizeIcon}
-                />
-              );
-            },
-          })}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={ProfilePage}
-          options={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              return (
-                <Icon
-                  name="user"
-                  color={focused ? colorFocused : colorIcon} // Thay đổi màu khi tab được chọn và không được chọn
-                  size={sizeIcon}
-                />
-              );
-            },
-          })}
-        />
-        <Tab.Screen
-          name="ListLike"
-          component={ListLikePage}
-          options={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              return (
-                <Icon
-                  name="heart"
-                  color={focused ? colorFocused : colorIcon} // Thay đổi màu khi tab được chọn và không được chọn
-                  size={sizeIcon}
-                />
-              );
-            },
-          })}
-        />
-      </Tab.Navigator>
-    );
-  }
+  //   return (
+  //     <Tab.Navigator
+  //       barStyle={{ backgroundColor: '#6D736D' }}
+  //       activeColor={colorFocused}
+  //       inactiveColor={colorIcon}
+  //     >
+  //       <Tab.Screen
+  //         name="Home"
+  //         component={HomePage}
+  //         options={({ route }) => ({
+  //           tabBarIcon: ({ focused, color, size }) => {
+  //             return (
+  //               <Icon
+  //                 name="home"
+  //                 color={focused ? colorFocused : colorIcon} // Thay đổi màu khi tab được chọn và không được chọn
+  //                 size={sizeIcon}
+  //               />
+  //             );
+  //           },
+  //         })}
+  //       />
+  //       <Tab.Screen
+  //         name="Friend"
+  //         component={FriendPage}
+  //         options={({ route }) => ({
+  //           tabBarIcon: ({ focused, color, size }) => {
+  //             return (
+  //               <Icon
+  //                 name="group"
+  //                 color={focused ? colorFocused : colorIcon} // Thay đổi màu khi tab được chọn và không được chọn
+  //                 size={sizeIcon}
+  //               />
+  //             );
+  //           },
+  //         })}
+  //       />
+  //       <Tab.Screen
+  //         name="Profile"
+  //         component={ProfilePage}
+  //         options={({ route }) => ({
+  //           tabBarIcon: ({ focused, color, size }) => {
+  //             return (
+  //               <Icon
+  //                 name="user"
+  //                 color={focused ? colorFocused : colorIcon} // Thay đổi màu khi tab được chọn và không được chọn
+  //                 size={sizeIcon}
+  //               />
+  //             );
+  //           },
+  //         })}
+  //       />
+  //       <Tab.Screen
+  //         name="ListLike"
+  //         component={ListLikePage}
+  //         options={({ route }) => ({
+  //           tabBarIcon: ({ focused, color, size }) => {
+  //             return (
+  //               <Icon
+  //                 name="heart"
+  //                 color={focused ? colorFocused : colorIcon} // Thay đổi màu khi tab được chọn và không được chọn
+  //                 size={sizeIcon}
+  //               />
+  //             );
+  //           },
+  //         })}
+  //       />
+  //     </Tab.Navigator>
+  //   );
+  // }
 
   return (
     <NavigationContainer>
@@ -103,7 +103,8 @@ export default function App() {
         />
         <Stack.Screen
           name="HomeScreen"
-          component={BottomTabs}
+          // component={BottomTabs}        
+            component={HomePage}
           options={{ headerShown: false, gestureEnabled: false }}
           // options={{
           //  // Tắt title của header

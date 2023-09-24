@@ -1,5 +1,5 @@
 import { StyleSheet, View, SafeAreaView } from 'react-native';
-import Trending from '../components/HomeComponents/Trending';
+// import Trending from '../components/HomeComponents/Trending';
 
 export default function HomePage(props) {
   return (
@@ -7,7 +7,7 @@ export default function HomePage(props) {
       <View style={styles.viewHeader}></View>
 
       <View style={styles.viewTrending}>
-        <Trending />
+        {/* <Trending /> */}
       </View>
 
       <View style={styles.viewComing}></View>

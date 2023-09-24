@@ -9,7 +9,7 @@ import styles from './style';
 
 export default function Body({ navigation }) {
   const [isSelected, setSelection] = useState(false);
-
+  
   return (
     <View>
       <Text style={{ marginLeft: 21, fontSize: 22, fontWeight: 'bold' }}> Email: </Text>
