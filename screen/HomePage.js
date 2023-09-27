@@ -1,16 +1,25 @@
 import { StyleSheet, View, SafeAreaView } from 'react-native';
 import Trending from '../components/HomeComponents/Trending';
-
-export default function HomePage(props) {
+import Header from '../components/HomeComponents/Header';
+import ComingMovies from '../components/HomeComponents/ComingMovies';
+import { ScrollView } from 'react-native-gesture-handler';
+export default function HomePage() {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.viewHeader}></View>
+      <View style={styles.viewHeader}>
+          <Header/>
+      </View>
 
+      <ScrollView>
       <View style={styles.viewTrending}>
         <Trending />
       </View>
 
-      <View style={styles.viewComing}></View>
+      <View style={styles.viewComing}>
+          <ComingMovies/>
+      </View>
+      </ScrollView>
+    
     </SafeAreaView>
   );
 }
@@ -24,10 +33,11 @@ const styles = StyleSheet.create({
   },
 
   viewHeader: {
-    flex: 0.3,
+    flex: 0.4,
   },
   viewTrending: {
     flex: 1.4,
+
   },
 
   viewComing: {
