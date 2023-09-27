@@ -4,7 +4,7 @@ var loginApiUrl = baseLink + '/dangnhap';
 var baseLinkTest = 'http://localhost:3002';
 var loginApiUrlTest = baseLinkTest + '/api/dangnhap';
 var registerUrlTest = baseLinkTest + '/api/themTaiKhoan'
-var getInforUrlTest = baseLinkTest + '/api/getPersonalInfos/'
+var getInforUrlTest = baseLinkTest + '/api/getThongTinCaNhan/'
 
 const LoginApi = async ({ userName, password }) => {
   var myHeaders = new Headers();
