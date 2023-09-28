@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   headerContainer: {
-    flex: 0.8,
+    flex: 0.9,
     zIndex: 1, // Đặt zIndex của Header thành 1
   },
   bodyContainer: {
