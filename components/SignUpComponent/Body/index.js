@@ -38,7 +38,6 @@ export default function Body({ navigation }) {
 
     if (password === re_password) {
       const result = await registerApi({ name: name, userName: userName, password: password });
-      console.log(" aaaaaa" + result.message);
       if(result.message === 'Tai khoan da ton tai') {
         alert('Tài khoản đã tồn tại');
           return

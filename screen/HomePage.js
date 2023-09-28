@@ -6,10 +6,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 export default function HomePage() {
   return (
     <SafeAreaView style={styles.container}>
+      
       <View style={styles.viewHeader}>
           <Header/>
       </View>
-
       <ScrollView>
       <View style={styles.viewTrending}>
         <Trending />
@@ -33,14 +33,14 @@ const styles = StyleSheet.create({
   },
 
   viewHeader: {
-    flex: 0.4,
   },
   viewTrending: {
     flex: 1.4,
-
+    marginTop: -8
   },
 
   viewComing: {
     flex: 1,
+    marginTop: -20
   },
 });

@@ -53,21 +53,7 @@ export default function App() {
             },
           })}
         />
-        <Tab.Screen
-          name="Profile"
-          component={ProfilePage}
-          options={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              return (
-                <Icon
-                  name="user"
-                  color={focused ? colorFocused : colorIcon} // Thay đổi màu khi tab được chọn và không được chọn
-                  size={sizeIcon}
-                />
-              );
-            },
-          })}
-        />
+
         <Tab.Screen
           name="ListLike"
           component={ListLikePage}
@@ -83,6 +69,22 @@ export default function App() {
             },
           })}
         />
+
+        <Tab.Screen
+          name="Profile"
+          component={ProfilePage}
+          options={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              return (
+                <Icon
+                  name="user"
+                  color={focused ? colorFocused : colorIcon} // Thay đổi màu khi tab được chọn và không được chọn
+                  size={sizeIcon}
+                />
+              );
+            },
+          })}
+        />
       </Tab.Navigator>
     );
   }
@@ -90,17 +92,17 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Login"
           component={Login}
-          options={{ headerShown: false, gestureEnabled: false , headerTitle: null}}
+          options={{ headerShown: false, gestureEnabled: false, headerTitle: null }}
         />
 
         <Stack.Screen
           name="SignUp"
           component={SignUp}
           options={{ headerShown: false, gestureEnabled: false }} // Giữ thanh header, nhưng loại bỏ văn bản (tên trang) trong header
-        />
+        /> */}
         <Stack.Screen
           name="HomeScreen"
           component={BottomTabs}
@@ -135,4 +137,3 @@ export default function App() {
 //     justifyContent: 'center',
 //   },
 // });
-
