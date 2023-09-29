@@ -43,9 +43,9 @@ export default function Trending() {
           firstItem={1}
           loop={true}
           inactiveSlideScale={0.86}
-          inactiveSlideOpacity={0.6}
+          inactiveSlideOpacity={0.5}
           sliderWidth={width}
-          itemWidth={width * 0.62}
+          itemWidth={width * 0.6}
           slideStyle={{ display: 'flex', alignItems: 'center' }}
         />
       </View>
@@ -61,10 +61,9 @@ const MovieCard = ({ item, handleClick }) => {
         source={{ uri: image500(item.poster_path) }}
         style={{
           width: width * 0.6,
-          height: height * 0.4,
+          height: height * 0.36,
           borderRadius: 10,
         }}
-        className="rounded-3xl"
       />
     </TouchableWithoutFeedback>
   );
@@ -84,7 +83,7 @@ textStyle: {
   color: 'white',
   fontWeight: 'bold',
   fontSize: 17,
-  marginLeft: 15,
+  marginLeft: 10,
   marginTop: 10
 }
 });
