@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     zIndex: 1, // Đặt zIndex của Header thành 1
   },
   bodyContainer: {
-    flex: 1.5,
+    flex: 1.2,
     zIndex: 2, // Đặt zIndex của Body thành 2 (lớn hơn Header)
   },
 });

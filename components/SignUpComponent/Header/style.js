@@ -1,24 +1,11 @@
 import { StyleSheet } from 'react-native';
 
 const style = StyleSheet.create({
-  image_one: {
-    width: 350,
-    height: 330,
-    backgroundColor: '#6D736D',
-    borderRadius: 200,
-    marginTop: -100,
-    marginLeft: -100,
+  image: {
+    width: "100%",
+    height: 230,
     position: 'absolute',
     zIndex: 1,
-  },
-  image_two: {
-    width: 220,
-    height: 220,
-    backgroundColor: 'black',
-    borderRadius: 500,
-    position: 'relative',
-    marginTop: -100,
-    marginLeft: 150,
   },
   viewImg: {
     flexDirection: 'row',
@@ -28,6 +15,7 @@ const style = StyleSheet.create({
   viewText: {
     marginTop: 50,
     position: 'absolute',
+    zIndex: 1,
   },
   text: {
     marginTop: 15,
