@@ -1,19 +1,13 @@
 import { StyleSheet, View, Text, Image, Button, TouchableOpacity, SafeAreaView } from 'react-native';
 import React, { useState } from 'react';
-import { getMovieTrending, detailMovies, getCastMovie} from '../api/flimsDB';
-import {getDataStorage} from '../config/Storage'
+import { getMovieTrending } from '../api/flimsDB';
 
 
-export default function FriendPage() {
+export default function SearchScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-        <Button title='ấn' onPress={async () => {
-            const details = await getCastMovie('565770');
-            console.log(details);
-        }}>
-          
-        </Button>
+        
     </SafeAreaView>
   );
 }

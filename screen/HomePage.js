@@ -3,20 +3,20 @@ import Trending from '../components/HomeComponents/Trending';
 import Header from '../components/HomeComponents/Header';
 import ComingMovies from '../components/HomeComponents/ComingMovies';
 import { ScrollView } from 'react-native-gesture-handler';
-export default function HomePage() {
+export default function HomePage({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       
       <View style={styles.viewHeader}>
-          <Header/>
+          <Header navigation={navigation} />
       </View>
       <ScrollView>
       <View style={styles.viewTrending}>
-        <Trending />
+        <Trending navigation={navigation} />
       </View>
 
       <View style={styles.viewComing}>
-          <ComingMovies/>
+          <ComingMovies navigation={navigation} />
       </View>
       </ScrollView>
     

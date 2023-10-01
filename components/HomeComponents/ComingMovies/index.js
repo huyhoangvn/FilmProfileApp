@@ -16,13 +16,12 @@ import { Button } from 'react-native-paper';
 // import Carousel from 'react-native-snap-carousel';
 var { width, height } = Dimensions.get('window');
 
-export default function ComingMovies() {
+export default function ComingMovies({ navigation }) {
   const [data, setData] = useState([]);
-  console.log(data);
 
   const getMovieComing = async () => {
     const result = await getMovieComings();
-    setData(result);
+    setData(result.results);
   };
 
   useEffect(() => {
@@ -65,15 +64,27 @@ export default function ComingMovies() {
         >
           {data.map((item, index) => {
             return (
-              <TouchableWithoutFeedback key={index} onPress={() => navigation.push('Movie', item)}>
+              <TouchableWithoutFeedback
+                key={index}
+                onPress={() =>
+                  navigation.navigate('DetailScreen', {
+                    itemId: item.id,
+                  })
+                }
+              >
                 <View>
                   <Image
                     // source={require('../assets/images/moviePoster2.png')}
                     source={{ uri: image500(item.poster_path) || fallbackMoviePoster }}
                     className="rounded-3xl"
-                    style={{ width: width * 0.33, height: height * 0.22 , marginRight: 15, borderRadius: 20}}
+                    style={{
+                      width: width * 0.33,
+                      height: height * 0.22,
+                      marginRight: 15,
+                      borderRadius: 20,
+                    }}
                   />
-                  <Text style = {{color: 'white', marginTop: 5, fontWeight: 'bold'}}>
+                  <Text style={{ color: 'white', marginTop: 5, fontWeight: 'bold' }}>
                     {item.title.length > 14 ? item.title.slice(0, 14) + '...' : item.title}
                   </Text>
                 </View>
@@ -98,9 +109,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
 
-  viewMovie: {
-      
-  },
+  viewMovie: {},
 
   viewText_one: {
     margin: 10,

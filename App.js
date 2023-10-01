@@ -7,6 +7,9 @@ import ProfilePage from './screen/ProfilePage';
 import ListLikePage from './screen/ListLikePage';
 import Login from './screen/Login';
 import SignUp from './screen/signUp';
+import SearchScreen from './screen/SearchScreen';
+import DetailScreen from './screen/DetailScreen';
+
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -92,7 +95,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Login"
           component={Login}
           options={{ headerShown: false, gestureEnabled: false, headerTitle: null }}
@@ -102,7 +105,7 @@ export default function App() {
           name="SignUp"
           component={SignUp}
           options={{ headerShown: false, gestureEnabled: false }} // Giữ thanh header, nhưng loại bỏ văn bản (tên trang) trong header
-        />
+        /> */}
         <Stack.Screen
           name="HomeScreen"
           component={BottomTabs}
@@ -123,6 +126,17 @@ export default function App() {
 
           //   },
           // }}
+        />
+
+        <Stack.Screen
+          name="SearchScreen"
+          component={SearchScreen}
+          options={{ headerShown: true, gestureEnabled: false }} // Giữ thanh header, nhưng loại bỏ văn bản (tên trang) trong header
+        />
+          <Stack.Screen
+          name="DetailScreen"
+          component={DetailScreen}
+          options={{ headerShown: false, gestureEnabled: false }} // Giữ thanh header, nhưng loại bỏ văn bản (tên trang) trong header
         />
       </Stack.Navigator>
     </NavigationContainer>
