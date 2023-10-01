@@ -15,26 +15,26 @@ export default function Body({ navigation }) {
   const [re_password, setRe_Password] = useState('');
 
   const handlerRigiter = async () => {
-    // if (name.length > 35) {
-    //   alert('Tên quá dài');
-    //   return;
-    // }
+    if (name.length > 35) {
+      alert('Tên quá dài');
+      return;
+    }
 
-    // if (name.length > 20) {
-    //   alert('userName quá dài');
-    //   return;
-    // }
+    if (name.length > 20) {
+      alert('userName quá dài');
+      return;
+    }
 
-    // if (password.length < 8 || password.length < 6) {
-    //   alert('Mật khẩu phải từ 6-8 ký tự');
-    //   return;
-    // }
+    if (password.length < 8 || password.length < 6) {
+      alert('Mật khẩu phải từ 6-8 ký tự');
+      return;
+    }
 
-    // if (!name || !password || !re_password || !userName) {
-    //   // Nếu một trong các trường dữ liệu trống, hiển thị thông báo lỗi và không gọi LoginApi
-    //   alert('Vui lòng điền đầy đủ thông tin');
-    //   return;
-    // }
+    if (!name || !password || !re_password || !userName) {
+      // Nếu một trong các trường dữ liệu trống, hiển thị thông báo lỗi và không gọi LoginApi
+      alert('Vui lòng điền đầy đủ thông tin');
+      return;
+    }
 
     if (password === re_password) {
       const result = await registerApi({ name: name, userName: userName, password: password });
@@ -46,7 +46,6 @@ export default function Body({ navigation }) {
         navigation.navigate('Login');
         alert('Đăng ký thành công');
        }
-  
     } else {
       alert('mật khẩu không khớp');
     }
