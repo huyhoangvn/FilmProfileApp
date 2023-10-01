@@ -95,7 +95,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Login"
           component={Login}
           options={{ headerShown: false, gestureEnabled: false, headerTitle: null }}
@@ -105,7 +105,7 @@ export default function App() {
           name="SignUp"
           component={SignUp}
           options={{ headerShown: false, gestureEnabled: false }} // Giữ thanh header, nhưng loại bỏ văn bản (tên trang) trong header
-        /> */}
+        />
         <Stack.Screen
           name="HomeScreen"
           component={BottomTabs}
