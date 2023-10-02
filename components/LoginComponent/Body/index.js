@@ -81,10 +81,7 @@ export default function Body({ navigation }) {
         }}
       />
 
-      {/* <View style={styles.checkboxContainer}>
-                <CheckBox value={isSelected} onValueChange={setSelection} style={styles.checkbox} />
-                <Text style={styles.label}>Ghi nhớ đăng nhập</Text>
-              </View> */}
+   
 
 
 

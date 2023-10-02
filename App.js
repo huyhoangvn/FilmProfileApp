@@ -131,7 +131,7 @@ export default function App() {
         <Stack.Screen
           name="SearchScreen"
           component={SearchScreen}
-          options={{ headerShown: true, gestureEnabled: false }} // Giữ thanh header, nhưng loại bỏ văn bản (tên trang) trong header
+          options={{ headerShown: false, gestureEnabled: false }} // Giữ thanh header, nhưng loại bỏ văn bản (tên trang) trong header
         />
           <Stack.Screen
           name="DetailScreen"
