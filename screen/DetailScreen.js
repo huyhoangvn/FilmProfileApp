@@ -12,9 +12,6 @@ export default function DetailScreen({navigation}) {
     const [isBodyShort, setIsBodyShort] = useState(true);
 
     useEffect(() => {
-        // Xác định xem nội dung của "Body" ngắn hay dài ở đây
-        // Ví dụ: nếu chiều dài nội dung của "Body" lớn hơn một giá trị nhất định, đặt isBodyShort thành false
-        // Đây chỉ là một ví dụ, bạn có thể đặt điều kiện dựa trên dữ liệu thực tế của bạn.
         setIsBodyShort(true);
     }, [itemId]);
 

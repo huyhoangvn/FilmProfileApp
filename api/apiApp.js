@@ -10,7 +10,8 @@ if (Platform.OS === 'ios') {
 } else {
   // Code for other platforms
 }
- 
+
+
 var loginApiUrl = baseLink + '/dangnhap';
 var registerUrl = baseLink + '/api/themTaiKhoan'
 var getInforUrl = baseLink + '/api/getThongTinCaNhan/'

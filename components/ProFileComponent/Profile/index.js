@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
 // import styles from './style';
 import { LoginApi, getInfor } from '../../../api/apiApp';
-import { getDataStorage , deleteDataStorage} from '../../../config/Storage';
+import { getDataStorage, deleteDataStorage } from '../../../config/Storage';
 export default function Profile({ navigation }) {
   const [avartaUser, setAvartaUser] = useState('');
   const [nameUser, setNameUser] = useState('');
@@ -29,10 +29,8 @@ export default function Profile({ navigation }) {
     setBirdUser(bird);
     setSexUser(sex);
     setIntroduceUser(introduce);
-
-    console.log(result);
   };
-
+  console.log(avartaUser);
   useEffect(() => {
     getUserInfor();
   }, []);
@@ -42,9 +40,8 @@ export default function Profile({ navigation }) {
       <View style={styles.viewInfor}>
         <Image
           style={styles.styleImg}
-          source={{ uri: avartaUser[0] }} 
-          defaultSource={require('../../../img/header_img.png')} // Đường dẫn đến hình ảnh mặc định
-// Sử dụng URI của ảnh làm nguồn
+          source={{ uri: avartaUser ? avartaUser : require('../../../img/avt_default.png') }}
+          
         />
         <Text style={{ marginTop: 5, color: 'white', fontSize: 25, fontWeight: 'bold' }}>
           {nameUser}
@@ -71,8 +68,8 @@ const styles = StyleSheet.create({
   styleImg: {
     width: 150,
     height: 150,
-    backgroundColor: 'red',
     borderRadius: 100,
+    resizeMode: 'cover',
   },
   textInfo: {
     marginTop: 5,

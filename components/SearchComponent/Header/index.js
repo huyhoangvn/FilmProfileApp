@@ -11,18 +11,20 @@ export default function Header({ navigation }) {
     <View style={styles.container}>
       <View style={styles.viewText}>
         <Text style={styles.text_two}>
-        <TouchableOpacity onPress={() => { navigation.goBack()}}>
+        <TouchableOpacity onPress={() => {navigation.navigate('HomeScreen')}}>
           <Icon name="arrow-left" size={25} color={'white'}></Icon>
         </TouchableOpacity>
         </Text>
       </View>
 
       <View style={styles.viewTitle}>
-          <Text style = {{color: 'white', fontSize: 20, fontWeight: 'bold'}}>Chi tiết phim</Text>
+          <Text style = {{color: 'white', fontSize: 20, fontWeight: 'bold'}}>Chi tiết Phim</Text>
       </View>
       
       <View style={styles.viewIcon}>
-       
+        <TouchableOpacity onPress={() => {navigation.navigate('SearchScreen')}}>
+          <Icon name="plus" size={25} color={'#19AFDF'}></Icon>
+        </TouchableOpacity>
       </View>
     </View>
   );

@@ -10,7 +10,6 @@ import { detailMovies, image500, getCastMovie, image185 } from '../../../api/fli
 
 export default function Person({ id }) {
   const [data, setData] = useState([]);
-  console.log(data);
   const getCatMovies = async () => {
     const result = await getCastMovie(id);
     setData(result.cast);
