@@ -8,18 +8,19 @@ import {
   Text,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { getMovieTrending, image500 } from '../../../api/flimsDB';
+import { getMovieTrending, image500} from '../../../api/flimsDB';
 import Carousel from 'react-native-snap-carousel';
 
 // import Carousel from 'react-native-snap-carousel';
 var { width, height } = Dimensions.get('window');
 
-export default function Trending() {
+export default function Trending({navigation}) {
   const [data, setData] = useState();
+  
 
   const getTrending = async () => {
     const data = await getMovieTrending();
-    setData(data);
+    setData(data.results);
   };
 
   useEffect(() => {
@@ -27,7 +28,9 @@ export default function Trending() {
   }, []);
 
   const handleClick = (item) => {
-    navigation.navigate('Movie', item);
+    navigation.navigate('DetailScreen', {
+      itemId: item.id,
+    });
   };
 
   return (
@@ -54,6 +57,7 @@ export default function Trending() {
 }
 
 const MovieCard = ({ item, handleClick }) => {
+  // console.log(item.poster_path)
   return (
     <TouchableWithoutFeedback onPress={() => handleClick(item)}>
       <Image

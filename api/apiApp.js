@@ -1,10 +1,21 @@
-var baseLink = 'https://canyon-mud-carriage.glitch.me';
-var loginApiUrl = baseLink + '/dangnhap';
+import { Platform } from 'react-native';
 
-var baseLinkTest = 'http://localhost:3002';
-var loginApiUrlTest = baseLinkTest + '/api/dangnhap';
-var registerUrlTest = baseLinkTest + '/api/themTaiKhoan'
-var getInforUrlTest = baseLinkTest + '/api/getThongTinCaNhan/'
+var baseLink 
+if (Platform.OS === 'ios') {
+  // Code for iOS
+  baseLink = 'http://localhost:3002'
+} else if (Platform.OS === 'android') {
+  // Code for Android
+  baseLink = 'http://10.0.2.2:3002';
+} else {
+  // Code for other platforms
+}
+
+
+var loginApiUrl = baseLink + '/dangnhap';
+var registerUrl = baseLink + '/api/themTaiKhoan'
+var getInforUrl = baseLink + '/api/getThongTinCaNhan/'
+
 
 const LoginApi = async ({ userName, password }) => {
   var myHeaders = new Headers();
@@ -23,7 +34,7 @@ const LoginApi = async ({ userName, password }) => {
   };
 
   try {
-    const response = await fetch(loginApiUrlTest, requestOptions);
+    const response = await fetch(loginApiUrl, requestOptions);
     if (!response.ok) {
       throw new Error('Không thể kết nối đến máy chủ');
     }
@@ -53,7 +64,7 @@ const registerApi = async ({ name, userName, password }) => {
   };
 
   try {
-    const response = await fetch(registerUrlTest, requestOptions);
+    const response = await fetch(registerUrl, requestOptions);
     if (!response.ok) {
       throw new Error('Không thể kết nối đến máy chủ');
     }
@@ -74,7 +85,7 @@ const registerApi = async ({ name, userName, password }) => {
     };
   
     try {
-      const response = await fetch(getInforUrlTest + id, requestOptions);
+      const response = await fetch(getInforUrl + id, requestOptions);
       if (!response.ok) {
         throw new Error('Không thể kết nối đến máy chủ');
       }
