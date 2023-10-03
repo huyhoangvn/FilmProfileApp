@@ -11,6 +11,7 @@ export default function Profile({ navigation }) {
   const [introduceUser, setIntroduceUser] = useState('');
   const [followerUser, setFollowerUser] = useState('');
   const [follow, setFollow] = useState('');
+  const defaultImg = require('../../../img/avt_default.png');
 
   console.log(nameUser);
 
@@ -40,7 +41,7 @@ export default function Profile({ navigation }) {
       <View style={styles.viewInfor}>
         <Image
           style={styles.styleImg}
-          source={{ uri: avartaUser ? avartaUser : require('../../../img/avt_default.png') }}
+          source={{ uri: avartaUser ? avartaUser : defaultImg.toString() }}
           
         />
         <Text style={{ marginTop: 5, color: 'white', fontSize: 25, fontWeight: 'bold' }}>
