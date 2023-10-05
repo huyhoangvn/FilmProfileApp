@@ -9,6 +9,7 @@ import Login from './screen/Login';
 import SignUp from './screen/signUp';
 import SearchScreen from './screen/SearchScreen';
 import DetailScreen from './screen/DetailScreen';
+import EditScreen from './screen/EditScreen';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 const Stack = createStackNavigator();
@@ -133,9 +134,15 @@ export default function App() {
           component={SearchScreen}
           options={{ headerShown: false, gestureEnabled: false }} // Giữ thanh header, nhưng loại bỏ văn bản (tên trang) trong header
         />
-          <Stack.Screen
+        <Stack.Screen
           name="DetailScreen"
           component={DetailScreen}
+          options={{ headerShown: false, gestureEnabled: false }} // Giữ thanh header, nhưng loại bỏ văn bản (tên trang) trong header
+        />
+
+        <Stack.Screen
+          name="EditScreen"
+          component={EditScreen}
           options={{ headerShown: false, gestureEnabled: false }} // Giữ thanh header, nhưng loại bỏ văn bản (tên trang) trong header
         />
       </Stack.Navigator>
