@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 // import styles from './style';
@@ -17,10 +17,6 @@ export default function Profile({ navigation,refreshing}) {
   const [followerUser, setFollowerUser] = useState('');
   const [follow, setFollow] = useState('');
 
-  console.log(nameUser);
-
-
-  const isFocused = useIsFocused();
   const getUserInfor = async () => {
     // if (refreshing) {
       const idUser = await getDataStorage({ nameData: 'idUser' });
@@ -41,7 +37,7 @@ export default function Profile({ navigation,refreshing}) {
 
   useEffect(() => {
     getUserInfor();
-  }, [isFocused]);
+  }, []);
 
   return (
     <View>

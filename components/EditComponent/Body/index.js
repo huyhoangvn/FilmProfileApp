@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput } from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, Image, TextInput, AppState } from 'react-native';
 import React, { useEffect, useState, useMemo } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 // import styles from './style';
@@ -20,12 +20,11 @@ export default function Body({ navigation }) {
   const [followerUser, setFollowerUser] = useState('');
   const [follow, setFollow] = useState('');
   const [selectedId, setSelectedId] = useState();
-  const isFocused = useIsFocused();
-  console.log(selectedId);
+  // console.log(selectedId);
 
   const getUserInfor = async () => {
     const idUser = await getDataStorage({ nameData: 'idUser' });
-    console.log(idUser);
+    console.log("Here");
     const result = await getInfor({ id: idUser });
     var avatar = result.hinhAnh;
     var name = result.hoTen;
@@ -42,7 +41,7 @@ export default function Body({ navigation }) {
   };
   useEffect(() => {
     getUserInfor();
-  }, [isFocused]);
+  }, []);
 
 
   const radioButtons = useMemo(
@@ -92,9 +91,9 @@ export default function Body({ navigation }) {
       introduce: introduceUser,
       image: avartaUser,
     });
-    console.log(result);
+    // console.log(result);
   };
-  console.log('aaaaa' + selectedId)
+  // console.log('aaaaa' + selectedId)
   return (
     <View>
       <Image
