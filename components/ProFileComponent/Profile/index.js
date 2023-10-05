@@ -19,18 +19,8 @@ export default function Profile({ navigation,refreshing}) {
 
   console.log(nameUser);
 
-  const defaultImg = require('../../../img/avt_default.png');
 
   const isFocused = useIsFocused();
-
-
-
-
-
-
-  console.log('đâsdasdsa' + refreshing)
-
-
   const getUserInfor = async () => {
     // if (refreshing) {
       const idUser = await getDataStorage({ nameData: 'idUser' });
