@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 // import styles from './style';
 import { LoginApi, getInfor } from '../../../api/apiApp';
 import { getDataStorage, deleteDataStorage } from '../../../config/Storage';
@@ -13,7 +14,12 @@ export default function Profile({ navigation }) {
   const [follow, setFollow] = useState('');
   const defaultImg = require('../../../img/avt_default.png');
 
-  console.log(nameUser);
+  const isFocused = useIsFocused();
+
+
+  // console.log(nameUser);
+
+  // console.log('đâsdasdsa' + refreshing)
 
   const getUserInfor = async () => {
     const idUser = await getDataStorage({ nameData: 'idUser' });
@@ -34,7 +40,7 @@ export default function Profile({ navigation }) {
   console.log(avartaUser);
   useEffect(() => {
     getUserInfor();
-  }, []);
+  }, [isFocused]);
 
   return (
     <View>
