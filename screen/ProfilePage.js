@@ -16,7 +16,6 @@ import Profile from '../components/ProFileComponent/Profile';
 import { ScrollView } from 'react-native-gesture-handler';
 
 export default function ProfilePage({ navigation }) {
-
   const [refreshing, setRefreshing] = useState(false);
 
   const handleRefresh = () => {

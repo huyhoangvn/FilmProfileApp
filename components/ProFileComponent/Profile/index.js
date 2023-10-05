@@ -1,10 +1,11 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 // import styles from './style';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Chọn một tên biểu tượng từ thư viện
 import { LoginApi, getInfor } from '../../../api/apiApp';
 import { getDataStorage, deleteDataStorage } from '../../../config/Storage';
+
 export default function Profile({ navigation,refreshing}) {
   const [avartaUser, setAvartaUser] = useState('');
   const [nameUser, setNameUser] = useState('');
@@ -16,15 +17,11 @@ export default function Profile({ navigation,refreshing}) {
   const [follow, setFollow] = useState('');
   const defaultImg = require('../../../img/avt_default.png');
 
-  const isFocused = useIsFocused();
-
+  // const isFocused = useIsFocused();
 
   // console.log(nameUser);
 
   // console.log('đâsdasdsa' + refreshing)
-
-  console.log('đâsdasdsa' + refreshing)
-
 
   const getUserInfor = async () => {
     // if (refreshing) {
@@ -46,7 +43,7 @@ export default function Profile({ navigation,refreshing}) {
 
   useEffect(() => {
     getUserInfor();
-  }, [isFocused]);
+  }, []);
 
   return (
     <View>
