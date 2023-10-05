@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput } from 'react-native';
 import React, { useEffect, useState, useMemo } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 // import styles from './style';
 import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -16,7 +17,7 @@ export default function Body({ navigation }) {
   const [followerUser, setFollowerUser] = useState('');
   const [follow, setFollow] = useState('');
   const [selectedId, setSelectedId] = useState();
-
+  const isFocused = useIsFocused();
   console.log(selectedId);
 
   const getUserInfor = async () => {
@@ -38,7 +39,8 @@ export default function Body({ navigation }) {
   };
   useEffect(() => {
     getUserInfor();
-  }, []);
+  }, [isFocused]);
+
 
   const radioButtons = useMemo(
     () => [

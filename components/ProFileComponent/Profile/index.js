@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 // import styles from './style';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Chọn một tên biểu tượng từ thư viện
 import { LoginApi, getInfor } from '../../../api/apiApp';
@@ -15,7 +16,12 @@ export default function Profile({ navigation,refreshing}) {
   const [follow, setFollow] = useState('');
   const defaultImg = require('../../../img/avt_default.png');
 
-  console.log(nameUser);
+  const isFocused = useIsFocused();
+
+
+  // console.log(nameUser);
+
+  // console.log('đâsdasdsa' + refreshing)
 
   console.log('đâsdasdsa' + refreshing)
 
@@ -40,7 +46,7 @@ export default function Profile({ navigation,refreshing}) {
 
   useEffect(() => {
     getUserInfor();
-  }, [refreshing]);
+  }, [isFocused]);
 
   return (
     <View>
