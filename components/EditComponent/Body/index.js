@@ -94,7 +94,7 @@ export default function Body({ navigation }) {
     <View>
       <Image
         style={styles.styleImg}
-        source={{ uri: avartaUser ? avartaUser : require('../../../img/avt_default.png') }}
+        source={{ uri: avartaUser ? avartaUser : require('../../../img/avt_default.png').toString() }}
       />
       <Icon
         style={styles.styleIcon}
