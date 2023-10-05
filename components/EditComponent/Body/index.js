@@ -41,6 +41,7 @@ export default function Body({ navigation }) {
     getUserInfor();
   }, [isFocused]);
 
+
   const radioButtons = useMemo(
     () => [
       {

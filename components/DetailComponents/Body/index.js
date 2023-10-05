@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Image, Button, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Image, Button, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import CheckBox from 'expo-checkbox';
@@ -13,20 +13,30 @@ export default function Body({ navigation, id }) {
   const [name, setName] = useState();
   const [overView, setOverView] = useState();
   const [release_date, setRelease_date] = useState();
+  const [dataChanged, setDataChanged] = useState(false); // State để theo dõi sự thay đổi trong dữ liệu
 
   const getDetail = async () => {
     const result = await detailMovies(id);
     setImage(result.poster_path);
     setName(result.title);
-    setOverView(result.overview)
-    setRelease_date(result.release_date)
+    setOverView(result.overview);
+    setRelease_date(result.release_date);
   };
 
- 
-
+  // Sử dụng useEffect để gọi lại getDetail khi dataChanged thay đổi
   useEffect(() => {
-    getDetail();
-  }, []);
+    if (dataChanged) {
+      getDetail();
+      // Sau khi tải lại dữ liệu, đặt dataChanged về false để ngăn việc tải lại liên tục
+      setDataChanged(false);
+    }
+  }, [dataChanged]);
+
+  // Một ví dụ về cách bạn có thể sử dụng setDataChanged để thay đổi dữ liệu
+  const handleDataChange = () => {
+    // Khi bạn muốn tải lại dữ liệu, đặt dataChanged thành true
+    setDataChanged(true);
+  };
 
   return (
     <View style={styles.container}>
