@@ -9,7 +9,7 @@ export default function Header() {
       <View style ={styles.viewImg}>
       <Image
         style={styles.image}
-        source={require('../../../img/header_img.png')}
+        source={require('../../../assets/header_img.png')}
       />
       </View>
 

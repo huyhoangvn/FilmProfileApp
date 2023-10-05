@@ -4,10 +4,13 @@ import React, { useEffect, useState, useMemo } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import RadioGroup from 'react-native-radio-buttons-group';
+import { Asset } from 'expo-asset';
+
 // Chọn một tên biểu tượng từ thư viện
 import { getInfor, editProFile } from '../../../api/apiApp';
 import { getDataStorage, deleteDataStorage } from '../../../config/Storage';
 export default function Body({ navigation }) {
+  const defaultImg  = Asset.fromModule(require('../../../assets/avt_default.png'));
   const [avartaUser, setAvartaUser] = useState('');
   const [nameUser, setNameUser] = useState('');
   const [birdUser, setBirdUser] = useState('');
@@ -94,7 +97,7 @@ export default function Body({ navigation }) {
     <View>
       <Image
         style={styles.styleImg}
-        source={{ uri: avartaUser ? avartaUser : require('../../../img/avt_default.png') }}
+        source={{ uri: avartaUser ? avartaUser : (defaultImg.uri || '') }}
       />
       <Icon
         style={styles.styleIcon}

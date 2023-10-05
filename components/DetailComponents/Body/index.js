@@ -13,8 +13,6 @@ export default function Body({ navigation, id }) {
   const [name, setName] = useState();
   const [overView, setOverView] = useState();
   const [release_date, setRelease_date] = useState();
-  const [dataChanged, setDataChanged] = useState(false); // State để theo dõi sự thay đổi trong dữ liệu
-
   const getDetail = async () => {
     const result = await detailMovies(id);
     setImage(result.poster_path);
@@ -23,20 +21,11 @@ export default function Body({ navigation, id }) {
     setRelease_date(result.release_date);
   };
 
-  // Sử dụng useEffect để gọi lại getDetail khi dataChanged thay đổi
   useEffect(() => {
-    if (dataChanged) {
       getDetail();
-      // Sau khi tải lại dữ liệu, đặt dataChanged về false để ngăn việc tải lại liên tục
-      setDataChanged(false);
-    }
-  }, [dataChanged]);
+  }, []);
 
-  // Một ví dụ về cách bạn có thể sử dụng setDataChanged để thay đổi dữ liệu
-  const handleDataChange = () => {
-    // Khi bạn muốn tải lại dữ liệu, đặt dataChanged thành true
-    setDataChanged(true);
-  };
+
 
   return (
     <View style={styles.container}>
@@ -48,7 +37,7 @@ export default function Body({ navigation, id }) {
             width: '100%',
             height: 270,
             borderRadius: 5,
-            resizeMode: 'stretch',
+            resizeMode: 'cover',//stretch
             // Sử dụng 'cover' để đảm bảo ảnh không bị biến dạng và không mất chi tiết
           }}
         />

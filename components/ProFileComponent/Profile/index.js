@@ -4,7 +4,9 @@ import React, { useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Chọn một tên biểu tượng từ thư viện
 import { LoginApi, getInfor } from '../../../api/apiApp';
 import { getDataStorage, deleteDataStorage } from '../../../config/Storage';
+import { Asset } from 'expo-asset';
 export default function Profile({ navigation,refreshing}) {
+  const defaultImg  = Asset.fromModule(require('../../../assets/avt_default.png'));
   const [avartaUser, setAvartaUser] = useState('');
   const [nameUser, setNameUser] = useState('');
   const [birdUser, setBirdUser] = useState('');
@@ -13,8 +15,6 @@ export default function Profile({ navigation,refreshing}) {
 
   const [followerUser, setFollowerUser] = useState('');
   const [follow, setFollow] = useState('');
-  const defaultImg = require('../../../img/avt_default.png');
-
   console.log(nameUser);
 
   console.log('đâsdasdsa' + refreshing)
@@ -46,7 +46,7 @@ export default function Profile({ navigation,refreshing}) {
     <View>
       <Image
           style={styles.styleImg}
-          source={{ uri: avartaUser ? avartaUser : defaultImg.toString() }}
+          source={{ uri: avartaUser ? avartaUser : (defaultImg.uri || '') }}
           
 
         />
