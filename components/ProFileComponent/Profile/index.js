@@ -17,12 +17,7 @@ export default function Profile({ navigation,refreshing}) {
   const [followerUser, setFollowerUser] = useState('');
   const [follow, setFollow] = useState('');
 
-<<<<<<< Updated upstream
-=======
-  console.log(avartaUser);
 
-
->>>>>>> Stashed changes
   const getUserInfor = async () => {
     // if (refreshing) {
       const idUser = await getDataStorage({ nameData: 'idUser' });

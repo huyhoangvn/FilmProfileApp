@@ -1,15 +1,11 @@
 import { StyleSheet, View, Text, Image, Button, TouchableOpacity, SafeAreaView } from 'react-native';
 import React, { useState } from 'react';
-<<<<<<< Updated upstream
+
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import { } from '../api/flimsDB';
-import { } from '../api/apiApp';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
-import { getDataStorage } from '../config/Storage';
-=======
 import { getMovieTrending, detailMovies, getCastMovie,deleteStatus} from '../api/apiApp';
 import {getDataStorage} from '../config/Storage'
->>>>>>> Stashed changes
+
 
 // const uid = getDataStorage({nameData: 'idUser'})
 
@@ -36,16 +32,14 @@ export default function FriendPage({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-<<<<<<< Updated upstream
       <Header navigation={navigation}></Header>
-=======
         <Button title='ấn' onPress={async () => {
             const details = await deleteStatus({idMovie: '1047041', idUser: '65165eb874320f5a915d93d7'});
             console.log(details);
         }}>
           
         </Button>
->>>>>>> Stashed changes
+
     </SafeAreaView>
   );
 }
