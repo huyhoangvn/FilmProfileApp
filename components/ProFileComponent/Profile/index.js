@@ -1,7 +1,7 @@
 import {View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { useIsFocused } from '@react-navigation/native';
-// import styles from './style';
+import { useFocusEffect } from '@react-navigation/native';
+
 import Icon from 'react-native-vector-icons/FontAwesome'; // Chọn một tên biểu tượng từ thư viện
 import { LoginApi, getInfor } from '../../../api/apiApp';
 import { getDataStorage, deleteDataStorage } from '../../../config/Storage';
@@ -13,7 +13,6 @@ export default function Profile({ navigation,refreshing}) {
   const [birdUser, setBirdUser] = useState('');
   const [sexUser, setSexUser] = useState('');
   const [introduceUser, setIntroduceUser] = useState('');
-
   const [followerUser, setFollowerUser] = useState('');
   const [follow, setFollow] = useState('');
 
@@ -40,11 +39,19 @@ export default function Profile({ navigation,refreshing}) {
     getUserInfor();
   }, []);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      getUserInfor()
+    }, [])
+  );
+
+
   return (
     <View>
       <Image
           style={styles.styleImg}
           source={{ uri: avartaUser ? avartaUser : (defaultImg.uri || '') }}
+          defaultSource={require('../../../assets/avt_default.png')}
         />
       <Icon style= {styles.styleIcon} name='pencil-square' size = {30} color={'white'} onPress={  () =>{
             navigation.navigate('EditScreen')
@@ -77,8 +84,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     borderRadius: 100,
-    resizeMode: 'cover',
-    backgroundColor: 'red',
+    resizeMode: 'cover', 
     alignSelf: 'center',
     
   },

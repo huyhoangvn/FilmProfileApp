@@ -18,7 +18,7 @@ var editProFileUrl = baseLink + '/api/suaThongTin/';
 var saveMovieUrl = baseLink + '/api/themPhim/';
 var getStatusUrl = baseLink + '/api/isPhimTrongDanhSach/';
 var deleteStatusUrl = baseLink + '/api/xoaKhoiDanhSach/';
-
+var getListSaveUrl = baseLink + '/api/getDanhSach/';
 
 const LoginApi = async ({ userName, password }) => {
   var myHeaders = new Headers();
@@ -159,13 +159,12 @@ const saveMovies = async ({ id, idMovie, nameMovie, imageMovie }) => {
   }
 };
 
-const getStatus = async ({idMovie,idUser}) => {
-
+const getStatus = async ({ idMovie, idUser }) => {
   var requestOptions = {
     method: 'GET',
-    redirect: 'follow'
+    redirect: 'follow',
   };
-  
+
   try {
     const response = await fetch(getStatusUrl + idMovie + '/' + idUser, requestOptions);
     if (!response.ok) {
@@ -177,16 +176,14 @@ const getStatus = async ({idMovie,idUser}) => {
     // Xử lý lỗi nếu cần
     throw error;
   }
+};
 
-}
-
-const deleteStatus = async ({idMovie,idUser}) => {
-
+const deleteStatus = async ({ idMovie, idUser }) => {
   var requestOptions = {
     method: 'GET',
-    redirect: 'follow'
+    redirect: 'follow',
   };
-  
+
   try {
     const response = await fetch(deleteStatusUrl + idMovie + '/' + idUser, requestOptions);
     if (!response.ok) {
@@ -198,7 +195,40 @@ const deleteStatus = async ({idMovie,idUser}) => {
     // Xử lý lỗi nếu cần
     throw error;
   }
+};
 
-}
+const getListSave = async ({idUser, love, status, nameMovie, review}) => {
+  console.log(idUser, love, status, nameMovie, review)
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    const response = await fetch(
+      getListSaveUrl +
+        idUser +
+        `?yeuThich=${love}&trangThaiXem=${status}&tenPhim=${nameMovie}&danhGia=${review}`,
+      requestOptions,
+    );
+    // http://localhost:3002/api/getDanhSach/651b07d81b75b48fecf2016a?yeuThich=-1&trangThaiXem=-1&tenPhim=-1&danhGia=-1
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+};
 
-module.exports = { LoginApi, registerApi, getInfor, editProFile, saveMovies,getStatus,deleteStatus};
+module.exports = {
+  LoginApi,
+  registerApi,
+  getInfor,
+  editProFile,
+  saveMovies,
+  getStatus,
+  deleteStatus,
+  getListSave,
+};

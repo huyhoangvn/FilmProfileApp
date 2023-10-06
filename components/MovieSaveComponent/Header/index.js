@@ -11,19 +11,17 @@ export default function Header({ navigation }) {
     <View style={styles.container}>
       <View style={styles.viewText}>
         <Text style={styles.text_two}>
-        <TouchableOpacity onPress={() => {navigation.navigate('Hồ Sơ')}}>
-          <Icon name="arrow-left" size={25} color={'white'}></Icon>
+        <TouchableOpacity onPress={() => {navigation.navigate('HomeScreen')}}>
         </TouchableOpacity>
         </Text>
       </View>
 
       <View style={styles.viewTitle}>
-          <Text style = {{color: 'white', fontSize: 20, fontWeight: 'bold'}}>Sửa thông tin </Text>
+          <Text style = {{color: 'white', fontSize: 20, fontWeight: 'bold'}}>Phim đã lưu</Text>
       </View>
       
       <View style={styles.viewIcon}>
         <TouchableOpacity onPress={() => {navigation.navigate('SearchScreen')}}>
-         
         </TouchableOpacity>
       </View>
     </View>

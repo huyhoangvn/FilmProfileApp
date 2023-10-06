@@ -1,11 +1,18 @@
-import { StyleSheet, View, Text, Image, Button, TouchableOpacity, SafeAreaView } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  Button,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
 import React, { useState } from 'react';
 
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/FontAwesome'; 
-import { getMovieTrending, detailMovies, getCastMovie,deleteStatus} from '../api/apiApp';
-import {getDataStorage} from '../config/Storage'
-
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { getMovieTrending, detailMovies, getCastMovie, getListSave } from '../api/apiApp';
+import { getDataStorage } from '../config/Storage';
 
 // const uid = getDataStorage({nameData: 'idUser'})
 
@@ -17,9 +24,11 @@ function Header({ navigation }) {
         <Text style={styles.headerTitle}>Trang bạn bè</Text>
       </View>
       <View style={styles.headerIcon}>
-        <TouchableOpacity onPress={() => {
-          navigation.navigate('FriendSearchScreen')
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('FriendSearchScreen');
+          }}
+        >
           <Icon name="user" size={25} color={'#19AFDF'}></Icon>
         </TouchableOpacity>
       </View>
@@ -29,17 +38,22 @@ function Header({ navigation }) {
 
 //Main
 export default function FriendPage({ navigation }) {
-
   return (
     <SafeAreaView style={styles.container}>
       <Header navigation={navigation}></Header>
-        <Button title='ấn' onPress={async () => {
-            const details = await deleteStatus({idMovie: '1047041', idUser: '65165eb874320f5a915d93d7'});
-            console.log(details);
-        }}>
-          
-        </Button>
-
+      <Button
+        title="ấn"
+        onPress={async () => {
+          const details = await getListSave({
+            idUser: '651b07d81b75b48fecf2016a',
+            love: -1,
+            status: -1,
+            nameMovie: -1,
+            review: -1,
+          });
+          console.log(details);
+        }}
+      ></Button>
     </SafeAreaView>
   );
 }

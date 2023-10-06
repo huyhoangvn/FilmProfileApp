@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'; // Chọn một tên b
 import HomePage from './screen/HomePage';
 import FriendPage from './screen/FriendPage';
 import ProfilePage from './screen/ProfilePage';
-import ListLikePage from './screen/ListLikePage';
+import MovieSavePage from './screen/MovieSavePage';
 import Login from './screen/Login';
 import SignUp from './screen/signUp';
 import SearchScreen from './screen/SearchScreen';
@@ -61,7 +61,7 @@ export default function App() {
 
         <Tab.Screen
           name="Đã Lưu"
-          component={ListLikePage}
+          component={MovieSavePage}
           options={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               return (
