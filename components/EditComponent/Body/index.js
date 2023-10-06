@@ -99,7 +99,6 @@ export default function Body({ navigation }) {
       <Image
         style={styles.styleImg}
         source={{ uri: avartaUser ? avartaUser : (defaultImg.uri || '') }}
-
       />
       <Icon
         style={styles.styleIcon}

@@ -1,22 +1,71 @@
 import { StyleSheet, View, Text, Image, Button, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import CheckBox from 'expo-checkbox';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Chọn một tên biểu tượng từ thư viện
-// import styles from './style';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { getDataStorage, deleteDataStorage } from '../../../config/Storage';
+import { detailMovies, image500, getCastMovie } from '../../../api/flimsDB';
+import { saveMovies, getStatus, deleteStatus } from '../../../api/apiApp';
 
-export default function Header({ navigation }) {
+export default function Header({ navigation, data }) {
   const [isSelected, setSelected] = useState(false);
-  const [colorIcon, setColorIcon] = useState('white'); // Mặc định màu là 'white'
+  const [colorIcon, setColorIcon] = useState('white');
 
-  const handleIconPress = () => {
-    if (isSelected === false) {
-      setColorIcon('red');
+  useEffect(() => {
+    if (data && data.id) {
+      getDataStatus();
+    }
+  }, [data]);
+
+  const getDataStatus = async () => {
+    const idUser = await getDataStorage({ nameData: 'idUser' });
+    const dataAsString = JSON.stringify(data);
+    const parsedData = JSON.parse(dataAsString);
+    const status = await getStatus({ idMovie: parsedData.id, idUser: idUser });
+    if (status.data === true) {
       setSelected(true);
+      setColorIcon('red');
     } else {
-      setColorIcon('white');
       setSelected(false);
+      setColorIcon('white');
+    }
+    // console.log('cccc ' + status);
+    // console.log('a  ' + parsedData.id, idUser);
+  };
+
+  const deleteDataStatus = async () => {
+    setColorIcon('white'); 
+    const idUser = await getDataStorage({ nameData: 'idUser' });
+    const dataAsString = JSON.stringify(data);
+    const parsedData = JSON.parse(dataAsString);
+    await deleteStatus({ idMovie: parsedData.id, idUser: idUser });
+
+
+    setSelected(false);
+  };
+
+  const saveMoviesApi = async () => {
+    setColorIcon('red');
+    const idUser = await getDataStorage({ nameData: 'idUser' });
+    const dataAsString = JSON.stringify(data);
+    const parsedData = JSON.parse(dataAsString);
+    await saveMovies({
+      id: idUser,
+      idMovie: parsedData.id,
+      nameMovie: parsedData.title,
+      imageMovie: parsedData.poster_path,
+    });
+
+
+    setSelected(true);
+  };
+
+  const handleIconPress = async () => {
+    if (isSelected) {
+      await deleteDataStatus();
+    } else {
+      await saveMoviesApi();
     }
   };
 
@@ -27,8 +76,7 @@ export default function Header({ navigation }) {
           <TouchableOpacity
             onPress={() => {
               navigation.goBack();
-            }}
-          >
+            }}>
             <Icon name="arrow-left" size={25} color={'white'}></Icon>
           </TouchableOpacity>
         </Text>
@@ -41,10 +89,9 @@ export default function Header({ navigation }) {
       <View style={styles.viewIcon}>
         <TouchableOpacity
           onPress={() => {
-            handleIconPress()
-          }}
-        >
-          <Icon name="heart" color={colorIcon} size={25} />
+            handleIconPress();
+          }}>
+          <Icon name="bookmark" color={colorIcon} size={25} />
         </TouchableOpacity>
       </View>
     </View>

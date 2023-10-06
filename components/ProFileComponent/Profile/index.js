@@ -17,6 +17,12 @@ export default function Profile({ navigation,refreshing}) {
   const [followerUser, setFollowerUser] = useState('');
   const [follow, setFollow] = useState('');
 
+<<<<<<< Updated upstream
+=======
+  console.log(avartaUser);
+
+
+>>>>>>> Stashed changes
   const getUserInfor = async () => {
     // if (refreshing) {
       const idUser = await getDataStorage({ nameData: 'idUser' });
@@ -44,8 +50,6 @@ export default function Profile({ navigation,refreshing}) {
       <Image
           style={styles.styleImg}
           source={{ uri: avartaUser ? avartaUser : (defaultImg.uri || '') }}
-          
-
         />
       <Icon style= {styles.styleIcon} name='pencil-square' size = {30} color={'white'} onPress={  () =>{
             navigation.navigate('EditScreen')

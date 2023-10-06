@@ -15,6 +15,10 @@ var loginApiUrl = baseLink + '/dangnhap';
 var registerUrl = baseLink + '/api/themTaiKhoan';
 var getInforUrl = baseLink + '/api/getThongTinCaNhan/';
 var editProFileUrl = baseLink + '/api/suaThongTin/';
+var saveMovieUrl = baseLink + '/api/themPhim/';
+var getStatusUrl = baseLink + '/api/isPhimTrongDanhSach/';
+var deleteStatusUrl = baseLink + '/api/xoaKhoiDanhSach/';
+
 
 const LoginApi = async ({ userName, password }) => {
   var myHeaders = new Headers();
@@ -95,7 +99,7 @@ const getInfor = async ({ id }) => {
 };
 
 const editProFile = async ({ id, name, bird, sex, introduce, image }) => {
-  console.log(id + ' ' + name + ' ' + bird + ' ' + sex + ' ' + introduce + ' ' + image) 
+  console.log(id + ' ' + name + ' ' + bird + ' ' + sex + ' ' + introduce + ' ' + image);
   var formdata = new FormData();
   formdata.append('hoTen', name);
   formdata.append('ngaySinh', bird);
@@ -113,7 +117,7 @@ const editProFile = async ({ id, name, bird, sex, introduce, image }) => {
     redirect: 'follow',
   };
   try {
-    const response = await fetch(editProFileUrl + id , requestOptions);
+    const response = await fetch(editProFileUrl + id, requestOptions);
     if (!response.ok) {
       throw new Error('Không thể kết nối đến máy chủ');
     }
@@ -125,4 +129,76 @@ const editProFile = async ({ id, name, bird, sex, introduce, image }) => {
   }
 };
 
-module.exports = { LoginApi, registerApi, getInfor, editProFile };
+const saveMovies = async ({ id, idMovie, nameMovie, imageMovie }) => {
+  var myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'application/json');
+
+  var raw = JSON.stringify({
+    idPhim: idMovie,
+    tenPhim: nameMovie,
+    hinhAnh: imageMovie,
+  });
+
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow',
+  };
+
+  try {
+    const response = await fetch(saveMovieUrl + id, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+};
+
+const getStatus = async ({idMovie,idUser}) => {
+
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+  try {
+    const response = await fetch(getStatusUrl + idMovie + '/' + idUser, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+
+}
+
+const deleteStatus = async ({idMovie,idUser}) => {
+
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+  try {
+    const response = await fetch(deleteStatusUrl + idMovie + '/' + idUser, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+
+}
+
+module.exports = { LoginApi, registerApi, getInfor, editProFile, saveMovies,getStatus,deleteStatus};
