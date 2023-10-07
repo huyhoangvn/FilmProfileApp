@@ -91,7 +91,12 @@ export default function Body({ navigation }) {
       introduce: introduceUser,
       image: avartaUser,
     });
-    // console.log(result);
+    if(result.message === 'Sửa thành công'){
+      alert('Sửa Thành Công')
+    }else{
+      alert('Vui Lòng chọn ảnh')
+    }
+    
   };
   // console.log('aaaaa' + selectedId)
   return (
@@ -99,7 +104,7 @@ export default function Body({ navigation }) {
       <Image
         style={styles.styleImg}
         source={{ uri: avartaUser ? avartaUser : (defaultImg.uri || '') }}
-
+        defaultSource={require('../../../assets/avt_default.png')}
       />
       <Icon
         style={styles.styleIcon}
@@ -166,7 +171,7 @@ export default function Body({ navigation }) {
             handlerEdit();
           }}
         >
-          <Text style={styles.buttonText}>SIGN IN</Text>
+          <Text style={styles.buttonText}>Sửa</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -182,7 +187,6 @@ const styles = StyleSheet.create({
     height: 150,
     borderRadius: 100,
     resizeMode: 'cover',
-    backgroundColor: 'red',
     alignSelf: 'center',
   },
   styleIcon: {

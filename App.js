@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'; // Chọn một tên b
 import HomePage from './screen/HomePage';
 import FriendPage from './screen/FriendPage';
 import ProfilePage from './screen/ProfilePage';
-import ListLikePage from './screen/ListLikePage';
+import MovieSavePage from './screen/MovieSavePage';
 import Login from './screen/Login';
 import SignUp from './screen/signUp';
 import SearchScreen from './screen/SearchScreen';
@@ -29,7 +29,7 @@ export default function App() {
         inactiveColor={colorIcon}
       >
         <Tab.Screen
-          name="Home"
+          name="Trang Chủ"
           component={HomePage}
           options={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
@@ -44,7 +44,7 @@ export default function App() {
           })}
         />
         <Tab.Screen
-          name="Friend"
+          name="Bạn Bè"
           component={FriendPage}
           options={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
@@ -60,13 +60,13 @@ export default function App() {
         />
 
         <Tab.Screen
-          name="ListLike"
-          component={ListLikePage}
+          name="Đã Lưu"
+          component={MovieSavePage}
           options={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               return (
                 <Icon
-                  name="heart"
+                  name="bookmark"
                   color={focused ? colorFocused : colorIcon} // Thay đổi màu khi tab được chọn và không được chọn
                   size={sizeIcon}
                 />
@@ -76,7 +76,7 @@ export default function App() {
         />
 
         <Tab.Screen
-          name="Profile"
+          name="Hồ Sơ"
           component={ProfilePage}
           options={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {

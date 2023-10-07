@@ -5,29 +5,36 @@ import CheckBox from 'expo-checkbox';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Chọn một tên biểu tượng từ thư viện
 import { detailMovies, image500,getCastMovie} from '../../../api/flimsDB';
+import Header from '../Header';
 // import styles from './style';
 var { width, height } = Dimensions.get('window');
 
-export default function Body({ navigation, id }) {
+export default function Body({ navigation, id, setDataHeader}) {
   const [image, setImage] = useState();
   const [name, setName] = useState();
   const [overView, setOverView] = useState();
   const [release_date, setRelease_date] = useState();
+  const [data, setData] = useState([]);
   const getDetail = async () => {
     const result = await detailMovies(id);
+    setData(result)
     setImage(result.poster_path);
     setName(result.title);
     setOverView(result.overview);
     setRelease_date(result.release_date);
+    setDataHeader(result)
   };
 
   useEffect(() => {
       getDetail();
   }, []);
+ 
+      
 
 
 
   return (
+    
     <View style={styles.container}>
       <View style={styles.viewImage}>
         <Image
@@ -76,3 +83,4 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
 });
+
