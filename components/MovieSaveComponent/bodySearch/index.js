@@ -55,8 +55,6 @@ export default function BodySearch({ navigation }) {
     if (isSelected === true) {
       love = 1;
     } else if (isSelected === false) {
-      love = 0;
-    } else {
       love = -1;
     }
     console.log(love);
@@ -68,30 +66,27 @@ export default function BodySearch({ navigation }) {
       nameMovie: nameMovie,
       review: point,
     });
-
     setData(details);
+   
+  };
+
+  const search = async () => {
+    const idUser = await getDataStorage({ nameData: 'idUser' });
+    var love = isSelected ? 1 : -1;
+      const details = await getListSave({
+        idUser: idUser,
+        love: love,
+        status: status,
+        nameMovie: searchQuery,
+        review: status,
+      });
+      setData(details);
+      console.log(details);
   };
  
 
   useEffect(() => {
     getDataSave();
-    const search = async () => {
-      const idUser = await getDataStorage({ nameData: 'idUser' });
-      var love = isSelected ? 1 : -1;
-      if (searchQuery.trim() !== '') {
-        const details = await getListSave({
-          idUser: idUser,
-          love: love,
-          status: status,
-          nameMovie: searchQuery,
-          review: status,
-        });
-        setData(details.results);
-      } else {
-        setData([]);
-      }
-    };
-    search();
   }, [point, status, searchQuery, isSelected]);
 
 
@@ -153,7 +148,9 @@ export default function BodySearch({ navigation }) {
           onChangeText={(text) => setSearchQuery(text)}
           placeholder="Search"
         />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() =>{
+          search()
+        }}>
           <Icon name="search" size={25} color={'#848484'} style={styles.icon} />
         </TouchableOpacity>
       </View>
