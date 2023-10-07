@@ -197,13 +197,16 @@ const deleteStatus = async ({ idMovie, idUser }) => {
   }
 };
 
-const getListSave = async ({idUser, love, status, nameMovie, review}) => {
-  console.log(idUser, love, status, nameMovie, review)
+const getListSave = async ({ idUser, love, status, nameMovie, review }) => {
+  console.log(idUser, love, status, nameMovie, review);
   var requestOptions = {
     method: 'GET',
     redirect: 'follow',
   };
   try {
+    console.log(
+      idUser + `?yeuThich=${love}&trangThaiXem=${status}&tenPhim=${nameMovie}&danhGia=${review}`,
+    );
     const response = await fetch(
       getListSaveUrl +
         idUser +
