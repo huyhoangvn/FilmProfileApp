@@ -23,8 +23,8 @@ var { width, height } = Dimensions.get('window');
 
 export default function BodySearch({ navigation }) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [data, setData] = useState([{ tenPhim: '/hSUi0nSrNSmi5tYbr5WXzZW1Crx.jpg' }]);
-  const [isSelected, setSelection] = useState(null);
+  const [data, setData] = useState([]);
+  const [isSelected, setSelection] = useState(false);
   const [point, setPoint] = useState(-1);
   const [status, setStatus] = useState(-1);
   const [nameMovie, setNameMovie] = useState(-1);
@@ -67,33 +67,30 @@ export default function BodySearch({ navigation }) {
       review: point,
     });
     setData(details);
-   
   };
 
   const search = async () => {
     const idUser = await getDataStorage({ nameData: 'idUser' });
     var love = isSelected ? 1 : -1;
-      const details = await getListSave({
-        idUser: idUser,
-        love: love,
-        status: status,
-        nameMovie: searchQuery,
-        review: status,
-      });
-      setData(details);
-      console.log(details);
+    const details = await getListSave({
+      idUser: idUser,
+      love: love,
+      status: status,
+      nameMovie: searchQuery,
+      review: status,
+    });
+    setData(details);
+    console.log(details);
   };
- 
 
   useEffect(() => {
     getDataSave();
   }, [point, status, searchQuery, isSelected]);
 
-
   useFocusEffect(
     React.useCallback(() => {
-      getDataSave()
-    }, [])
+      getDataSave();
+    }, []),
   );
 
   const renderItem = ({ item, index }) => {
@@ -104,38 +101,73 @@ export default function BodySearch({ navigation }) {
       yeuThich = 'Yêu Thích';
     }
     return (
-      <TouchableWithoutFeedback
-        key={index}
-        onPress={() => {
-          navigation.navigate('DetailScreen', {
-            itemId: item.idPhim,
-          });
-        }}
-      >
-        <View style={styles.viewItem}>
-          <Image
-            source={{ uri: image185(item.hinhAnh) }}
-            style={{ width: 80, height: 130, borderRadius: 15 }}
-          />
-          <View style={{ marginLeft: 15 }}>
-            <Text style={{ color: '#F8EE0D', fontSize: 25, fontWeight: 'bold', marginTop: 5 }}>
-              {item.tenPhim.length > 20 ? item.tenPhim.slice(0, 15) + '...' : item.tenPhim}
-            </Text>
+      <View>
+        <TouchableWithoutFeedback
+          key={index}
+          onPress={() => {
+            navigation.navigate('DetailScreen', {
+              itemId: item.idPhim,
+            });
+          }}
+        >
+          <View style={styles.viewItem}>
+            <Image
+              source={{ uri: image185(item.hinhAnh) }}
+              style={{ width: 80, height: 130, borderRadius: 15 }}
+            />
+            <View style={{ marginLeft: 15 }}>
+              <Text style={{ color: '#F8EE0D', fontSize: 25, fontWeight: 'bold', marginTop: 5 }}>
+                {item.tenPhim.length > 20 ? item.tenPhim.slice(0, 15) + '...' : item.tenPhim}
+              </Text>
 
-            <Text style={styles.text_two}>
-              <Text style={styles.text_one}>Đánh giá: </Text>
-              {item.danhGia}
-            </Text>
+              <Text style={styles.text_two}>
+                <Text style={styles.text_one}>Đánh giá: </Text>
+                {item.danhGia}
+              </Text>
 
-            <Text style={styles.text_two}>
-              <Text style={styles.text_one}>Trạng thái xem: </Text>: {item.trangThaiXem}
-            </Text>
-            <Text style={{ color: '#FFA800', fontSize: 15, marginTop: 5, fontWeight: 'bold' }}>
-              {yeuThich}
-            </Text>
+              <Text style={styles.text_two}>
+                <Text style={styles.text_one}>Trạng thái xem: </Text>: {item.trangThaiXem}
+              </Text>
+              <Text style={{ color: '#FFA800', fontSize: 15, marginTop: 5, fontWeight: 'bold' }}>
+                {yeuThich}
+              </Text>
+            </View>
           </View>
+        </TouchableWithoutFeedback>
+        <View style={styles.viewButton}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+  
+
+            }}
+          >
+            <Text style={styles.buttonText}>Sửa</Text>
+          </TouchableOpacity>
+
+
+          <TouchableOpacity
+            style={styles.button2}
+            onPress={() => {
+             
+              // navigation.navigate('HomeScreen');
+            }}
+          >
+            <Text style={styles.buttonText}>Chia sẻ</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+         
+              // navigation.navigate('HomeScreen');
+            }}
+          >
+            <Text style={styles.buttonText}>Xoá</Text>
+          </TouchableOpacity>
         </View>
-      </TouchableWithoutFeedback>
+        <View style = {{width: '100%', height: 0.5, backgroundColor: '#686868', marginBottom: 10, marginTop: 5}}></View>
+      </View>
     );
   };
 
@@ -148,9 +180,11 @@ export default function BodySearch({ navigation }) {
           onChangeText={(text) => setSearchQuery(text)}
           placeholder="Search"
         />
-        <TouchableOpacity onPress={() =>{
-          search()
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            search();
+          }}
+        >
           <Icon name="search" size={25} color={'#848484'} style={styles.icon} />
         </TouchableOpacity>
       </View>
@@ -233,8 +267,8 @@ const styles = StyleSheet.create({
 
   viewItem: {
     flexDirection: 'row',
-    marginLeft: 10,
-    padding: 10,
+    marginLeft: 5,
+    padding: 5,
   },
   text_one: {
     color: 'white',
@@ -274,5 +308,36 @@ const styles = StyleSheet.create({
   iconStyle: {
     width: 20,
     height: 20,
+  },
+  button: {
+    backgroundColor: '#19AFDF',
+    width: 100,
+    height: 30,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  button2: {
+    backgroundColor: '#19AFDF',
+    width: 150,
+    height: 30,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  
+  },
+  viewButton: {
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 10
   },
 });
