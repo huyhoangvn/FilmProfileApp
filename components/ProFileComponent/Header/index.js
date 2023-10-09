@@ -1,12 +1,13 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
-import { TextInput } from 'react-native-gesture-handler';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 // import styles from './style';
 import { LoginApi } from '../../../api/apiApp';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Chọn một tên biểu tượng từ thư viện
 import { getDataStorage , deleteDataStorage} from '../../../config/Storage';
 
 export default function Header({ navigation }) {
+  
   return (
     <View style={styles.container}>
       <View style={styles.viewText}>

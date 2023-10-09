@@ -1,34 +1,40 @@
-import { StyleSheet, View, Text, Image, Button, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Image, Button, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import CheckBox from 'expo-checkbox';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Chọn một tên biểu tượng từ thư viện
 import { detailMovies, image500,getCastMovie} from '../../../api/flimsDB';
+import Header from '../Header';
 // import styles from './style';
 var { width, height } = Dimensions.get('window');
 
-export default function Body({ navigation, id }) {
+export default function Body({ navigation, id, setDataHeader}) {
   const [image, setImage] = useState();
   const [name, setName] = useState();
   const [overView, setOverView] = useState();
   const [release_date, setRelease_date] = useState();
-
+  const [data, setData] = useState([]);
   const getDetail = async () => {
     const result = await detailMovies(id);
+    setData(result)
     setImage(result.poster_path);
     setName(result.title);
-    setOverView(result.overview)
-    setRelease_date(result.release_date)
+    setOverView(result.overview);
+    setRelease_date(result.release_date);
+    setDataHeader(result)
   };
 
- 
-
   useEffect(() => {
-    getDetail();
+      getDetail();
   }, []);
+ 
+      
+
+
 
   return (
+    
     <View style={styles.container}>
       <View style={styles.viewImage}>
         <Image
@@ -38,7 +44,7 @@ export default function Body({ navigation, id }) {
             width: '100%',
             height: 270,
             borderRadius: 5,
-            resizeMode: 'stretch',
+            resizeMode: 'cover',//stretch
             // Sử dụng 'cover' để đảm bảo ảnh không bị biến dạng và không mất chi tiết
           }}
         />
@@ -77,3 +83,4 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
 });
+

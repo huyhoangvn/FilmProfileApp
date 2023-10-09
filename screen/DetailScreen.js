@@ -10,6 +10,8 @@ export default function DetailScreen({navigation}) {
     const route = useRoute();
     const itemId = route.params?.itemId;
     const [isBodyShort, setIsBodyShort] = useState(true);
+    const [data,setData] = useState([]);
+ 
 
     useEffect(() => {
         setIsBodyShort(true);
@@ -18,10 +20,10 @@ export default function DetailScreen({navigation}) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Header navigation={navigation} />
+                <Header navigation={navigation} data={data} />
             </View>
-            <ScrollView style={styles.body}>
-                <Body id={itemId} />
+            <ScrollView style={styles.body}  >
+                <Body id={itemId} setDataHeader ={setData}/>
             </ScrollView>
             <ScrollView style={isBodyShort ? styles.personShort : styles.personLong}>
                 <Person id={itemId} />

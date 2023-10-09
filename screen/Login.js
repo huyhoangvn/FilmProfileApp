@@ -14,7 +14,7 @@ export default function Login({ navigation }) {
       style={styles.container}
     >
       <View style={styles.headerContainer}>
-        <Header navigation={navigation}/>
+        <Header navigation={navigation} />
       </View>
 
       <View style={styles.bodyContainer}>

@@ -4,11 +4,13 @@ import Icon from 'react-native-vector-icons/FontAwesome'; // Chọn một tên b
 import HomePage from './screen/HomePage';
 import FriendPage from './screen/FriendPage';
 import ProfilePage from './screen/ProfilePage';
-import ListLikePage from './screen/ListLikePage';
+import MovieSavePage from './screen/MovieSavePage';
 import Login from './screen/Login';
 import SignUp from './screen/signUp';
 import SearchScreen from './screen/SearchScreen';
 import DetailScreen from './screen/DetailScreen';
+import EditScreen from './screen/EditScreen';
+import FriendSearchScreen from './screen/FriendSearchScreen';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 const Stack = createStackNavigator();
@@ -27,7 +29,7 @@ export default function App() {
         inactiveColor={colorIcon}
       >
         <Tab.Screen
-          name="Home"
+          name="Trang Chủ"
           component={HomePage}
           options={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
@@ -42,7 +44,7 @@ export default function App() {
           })}
         />
         <Tab.Screen
-          name="Friend"
+          name="Bạn Bè"
           component={FriendPage}
           options={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
@@ -58,13 +60,13 @@ export default function App() {
         />
 
         <Tab.Screen
-          name="ListLike"
-          component={ListLikePage}
+          name="Đã Lưu"
+          component={MovieSavePage}
           options={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               return (
                 <Icon
-                  name="heart"
+                  name="bookmark"
                   color={focused ? colorFocused : colorIcon} // Thay đổi màu khi tab được chọn và không được chọn
                   size={sizeIcon}
                 />
@@ -74,7 +76,7 @@ export default function App() {
         />
 
         <Tab.Screen
-          name="Profile"
+          name="Hồ Sơ"
           component={ProfilePage}
           options={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
@@ -133,9 +135,21 @@ export default function App() {
           component={SearchScreen}
           options={{ headerShown: false, gestureEnabled: false }} // Giữ thanh header, nhưng loại bỏ văn bản (tên trang) trong header
         />
-          <Stack.Screen
+        <Stack.Screen
           name="DetailScreen"
           component={DetailScreen}
+          options={{ headerShown: false, gestureEnabled: false }} // Giữ thanh header, nhưng loại bỏ văn bản (tên trang) trong header
+        />
+
+        <Stack.Screen
+          name="FriendSearchScreen"
+          component={FriendSearchScreen}
+          options={{ headerShown: false, gestureEnabled: false }} // Giữ thanh header, nhưng loại bỏ văn bản (tên trang) trong header
+        />
+
+        <Stack.Screen
+          name="EditScreen"
+          component={EditScreen}
           options={{ headerShown: false, gestureEnabled: false }} // Giữ thanh header, nhưng loại bỏ văn bản (tên trang) trong header
         />
       </Stack.Navigator>

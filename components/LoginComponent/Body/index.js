@@ -81,9 +81,6 @@ export default function Body({ navigation }) {
         }}
       />
 
-   
-
-
 
       <TouchableOpacity
         style={styles.button}
