@@ -18,6 +18,7 @@ import CheckBox from 'expo-checkbox';
 import { Dropdown } from 'react-native-element-dropdown';
 import { getListSave } from '../../../api/apiApp';
 import { getDataStorage, deleteDataStorage } from '../../../config/Storage';
+import Modal from '../../../components/MovieSaveComponent/Modal';
 
 var { width, height } = Dimensions.get('window');
 
@@ -28,7 +29,13 @@ export default function BodySearch({ navigation }) {
   const [point, setPoint] = useState(-1);
   const [status, setStatus] = useState(-1);
   const [nameMovie, setNameMovie] = useState(-1);
-  console.log(isSelected);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [dataIsSelected, setDataSelection] = useState(false);
+  const [dataPoint, setDataPoint] = useState();
+  const [dataStatus, setDataStatus] = useState();
+  const [idUser, setIdUser] = useState();
+  const [idMovie, setIdMovie] = useState();
   const dataDropDow = [
     { id: -1, name: 'Xem tất cả' },
     { id: 0, name: 'Chưa xem' },
@@ -90,8 +97,12 @@ export default function BodySearch({ navigation }) {
   useFocusEffect(
     React.useCallback(() => {
       getDataSave();
-    }, []),
+    }, [modalVisible]),
   );
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
 
   const renderItem = ({ item, index }) => {
     let yeuThich;
@@ -99,6 +110,12 @@ export default function BodySearch({ navigation }) {
       yeuThich = 'N/A';
     } else {
       yeuThich = 'Yêu Thích';
+    }
+    var love;
+    if (isSelected === true) {
+      love = 1;
+    } else if (isSelected === false) {
+      love = -1;
     }
     return (
       <View>
@@ -115,6 +132,7 @@ export default function BodySearch({ navigation }) {
               source={{ uri: image185(item.hinhAnh) }}
               style={{ width: 80, height: 130, borderRadius: 15 }}
             />
+
             <View style={{ marginLeft: 15 }}>
               <Text style={{ color: '#F8EE0D', fontSize: 25, fontWeight: 'bold', marginTop: 5 }}>
                 {item.tenPhim.length > 20 ? item.tenPhim.slice(0, 15) + '...' : item.tenPhim}
@@ -134,22 +152,27 @@ export default function BodySearch({ navigation }) {
             </View>
           </View>
         </TouchableWithoutFeedback>
+
         <View style={styles.viewButton}>
           <TouchableOpacity
+            key={index}
             style={styles.button}
-            onPress={() => {
-  
-
+            onPress={async () => {
+              const idUser = await getDataStorage({ nameData: 'idUser' });
+              openModal();
+              setDataPoint(item.danhGia);
+              setDataStatus(item.trangThaiXem);
+              setDataSelection(item.yeuThich);
+              setIdUser(idUser);
+              setIdMovie(item.idPhim);
             }}
           >
             <Text style={styles.buttonText}>Sửa</Text>
           </TouchableOpacity>
 
-
           <TouchableOpacity
             style={styles.button2}
             onPress={() => {
-             
               // navigation.navigate('HomeScreen');
             }}
           >
@@ -159,14 +182,21 @@ export default function BodySearch({ navigation }) {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-         
               // navigation.navigate('HomeScreen');
             }}
           >
             <Text style={styles.buttonText}>Xoá</Text>
           </TouchableOpacity>
         </View>
-        <View style = {{width: '100%', height: 0.5, backgroundColor: '#686868', marginBottom: 10, marginTop: 5}}></View>
+        <View
+          style={{
+            width: '100%',
+            height: 0.5,
+            backgroundColor: '#686868',
+            marginBottom: 10,
+            marginTop: 5,
+          }}
+        ></View>
       </View>
     );
   };
@@ -196,6 +226,15 @@ export default function BodySearch({ navigation }) {
           style={{ marginLeft: 4, borderColor: 'white' }}
         />
         <Text style={{ color: 'white', marginLeft: 5 }}>Yêu thích</Text>
+        <Modal
+          visible={modalVisible}
+          point={dataPoint}
+          status={dataStatus}
+          like={dataIsSelected}
+          idUser={idUser}
+          idMovie={idMovie}
+          onClose={() => setModalVisible(false)}
+        />
 
         <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'flex-end' }}>
           <Dropdown
@@ -332,12 +371,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
-  
   },
   viewButton: {
     marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 10
+    marginBottom: 10,
   },
 });
