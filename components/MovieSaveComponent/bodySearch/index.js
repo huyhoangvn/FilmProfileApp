@@ -8,6 +8,7 @@ import {
   Text,
   FlatList,
   Button,
+  Alert,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
@@ -16,7 +17,7 @@ import { getSearchMovie, image185 } from '../../../api/flimsDB';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import CheckBox from 'expo-checkbox';
 import { Dropdown } from 'react-native-element-dropdown';
-import { getListSave } from '../../../api/apiApp';
+import { getListSave, deleteStatus } from '../../../api/apiApp';
 import { getDataStorage, deleteDataStorage } from '../../../config/Storage';
 import Modal from '../../../components/MovieSaveComponent/Modal';
 
@@ -87,7 +88,17 @@ export default function BodySearch({ navigation }) {
       review: status,
     });
     setData(details);
-    console.log(details);
+  };
+
+  const handelDelete = async (idMovie) => {
+    const idUser = await getDataStorage({ nameData: 'idUser' });
+
+    const result = await deleteStatus({ idMovie: idMovie, idUser: idUser });
+    if(result.message === "Xóa thành công"){
+      getDataSave();
+      alert(result.message);
+    }
+
   };
 
   useEffect(() => {
@@ -182,7 +193,23 @@ export default function BodySearch({ navigation }) {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              // navigation.navigate('HomeScreen');
+              Alert.alert(
+                'Bạn có muốn xóa?',
+                '',
+                [
+                  {
+                    text: 'Cancel',
+                    onPress: () => {},
+                    style: 'cancel',
+                  },
+                  {
+                    text: 'OK',
+                    onPress: () => {
+                      handelDelete(item.idPhim);
+                    },
+                  },
+                ], // Thêm ngoặc đóng ở đây
+              );
             }}
           >
             <Text style={styles.buttonText}>Xoá</Text>
@@ -275,6 +302,7 @@ export default function BodySearch({ navigation }) {
           data={data}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
+
           // numColumns={false} // Chia thành hai cột
           // columnWrapperStyle={{ justifyContent: 'space-between' }} // Điều chỉnh khoảng cách giữa các cột
         />

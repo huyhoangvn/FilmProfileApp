@@ -232,7 +232,7 @@ const editSaveList = async ({ idUser, idMovie, status, like, point }) => {
   myHeaders.append('Content-Type', 'application/json');
 
   console.log('dsaadsdasdasdasdasdasdas   ' + idUser, idMovie, status, like, point);
-  
+
   var raw = JSON.stringify({
     danhGia: point,
     trangThaiXem: status,
@@ -248,7 +248,11 @@ const editSaveList = async ({ idUser, idMovie, status, like, point }) => {
 
   try {
     const response = await fetch(
-      editSaveListUrl + idUser + '/' + idMovie + `?yeuThich=${like}&danhGia=${point}&trangThaiXem=${status}`,
+      editSaveListUrl +
+        idUser +
+        '/' +
+        idMovie +
+        `?yeuThich=${like}&danhGia=${point}&trangThaiXem=${status}`,
       requestOptions,
     );
 
@@ -263,6 +267,25 @@ const editSaveList = async ({ idUser, idMovie, status, like, point }) => {
   }
 };
 
+// const deleteSaveList = async ({ idUser, idMovie }) => {
+//   var requestOptions = {
+//     method: 'GET',
+//     redirect: 'follow',
+//   };
+
+//   try {
+//     const response = await fetch(deleteSaveListUrl + idMovie + '/' + idUser, requestOptions);
+
+//     if (!response.ok) {
+//       throw new Error('Không thể kết nối đến máy chủ');
+//     }
+//     const result = await response.json();
+//     return result; // Trả về kết quả cho người gọi hàm
+//   } catch (error) {
+//     // Xử lý lỗi nếu cần
+//     throw error;
+//   }
+// };
 
 module.exports = {
   LoginApi,
@@ -274,4 +297,5 @@ module.exports = {
   deleteStatus,
   getListSave,
   editSaveList,
+
 };

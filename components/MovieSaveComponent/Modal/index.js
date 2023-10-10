@@ -13,7 +13,7 @@ function ModalConFig({ visible, onClose, point, status, like, idUser, idMovie })
   const [likeNew, setLikeNew] = useState();
   const [idUserNew, setIdUserNew] = useState();
   const [idMovieNew, setIdMovieNew] = useState();
-  // console.log(idMovie)
+  console.log(idMovie)
 
   const handlerEdit = async () => {
     const result = await editSaveList({
