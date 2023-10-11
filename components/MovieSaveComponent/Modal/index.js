@@ -168,15 +168,17 @@ function ModalConFig({ visible, onClose, point, status, like, idUser, idMovie })
           />
 
           <View style={{ flexDirection: 'row', marginTop: 20, alignSelf: 'center' }}>
+          <TouchableOpacity style={styles.button} onPress={onClose}>
+              <Text style={styles.buttonText}>Huỷ</Text>
+            </TouchableOpacity>
+            
             <TouchableOpacity style={styles.button} onPress={() =>{
               handlerEdit()
             }}>
-              <Text style={styles.buttonText}>Add</Text>
+              <Text style={styles.buttonText}>Sửa</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={onClose}>
-              <Text style={styles.buttonText}>Huỷ</Text>
-            </TouchableOpacity>
+           
           </View>
         </View>
       </View>
@@ -189,13 +191,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
   },
   modalView: {
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 30,
-    // alignItems: 'center',
+    marginLeft: 20,  // Điều chỉnh giá trị marginLeft tại đây
+    marginRight: 20, // Điều chỉnh giá trị marginRight tại đây
+    maxWidth: '100%',
+    maxHeight: "50%",  // Để tránh modal quá rộng, bạn có thể sử dụng maxWidth
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

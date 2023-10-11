@@ -44,7 +44,7 @@ export default function Body({ navigation, id, setDataHeader}) {
             width: '100%',
             height: 270,
             borderRadius: 5,
-            resizeMode: 'cover',//stretch
+            resizeMode: 'stretch',//stretch
             // Sử dụng 'cover' để đảm bảo ảnh không bị biến dạng và không mất chi tiết
           }}
         />
