@@ -20,6 +20,7 @@ var getStatusUrl = baseLink + '/api/isPhimTrongDanhSach/';
 var deleteStatusUrl = baseLink + '/api/xoaKhoiDanhSach/';
 var getListSaveUrl = baseLink + '/api/getDanhSach/';
 var editSaveListUrl = baseLink + '/api/suaDanhGia/';
+var addPostUrl = baseLink + '/api/themBaiDang/';
 
 const LoginApi = async ({ userName, password }) => {
   var myHeaders = new Headers();
@@ -205,15 +206,8 @@ const getListSave = async ({ idUser, love, status, nameMovie, review }) => {
     redirect: 'follow',
   };
   try {
-    console.log(
-      idUser + `?yeuThich=${love}&trangThaiXem=${status}&tenPhim=${nameMovie}&danhGia=${review}`,
-    );
-    const response = await fetch(
-      getListSaveUrl +
-        idUser +
-        `?yeuThich=${love}&trangThaiXem=${status}&tenPhim=${nameMovie}&danhGia=${review}`,
-      requestOptions,
-    );
+    console.log(idUser + `?yeuThich=${love}&trangThaiXem=${status}&tenPhim=${nameMovie}&danhGia=${review}`);
+    const response = await fetch(getListSaveUrl + idUser + `?yeuThich=${love}&trangThaiXem=${status}&tenPhim=${nameMovie}&danhGia=${review}`, requestOptions);
     // http://localhost:3002/api/getDanhSach/651b07d81b75b48fecf2016a?yeuThich=-1&trangThaiXem=-1&tenPhim=-1&danhGia=-1
     if (!response.ok) {
       throw new Error('Không thể kết nối đến máy chủ');
@@ -247,14 +241,7 @@ const editSaveList = async ({ idUser, idMovie, status, like, point }) => {
   };
 
   try {
-    const response = await fetch(
-      editSaveListUrl +
-        idUser +
-        '/' +
-        idMovie +
-        `?yeuThich=${like}&danhGia=${point}&trangThaiXem=${status}`,
-      requestOptions,
-    );
+    const response = await fetch(editSaveListUrl + idUser + '/' + idMovie + `?yeuThich=${like}&danhGia=${point}&trangThaiXem=${status}`, requestOptions);
 
     if (!response.ok) {
       throw new Error('Không thể kết nối đến máy chủ');
@@ -267,25 +254,35 @@ const editSaveList = async ({ idUser, idMovie, status, like, point }) => {
   }
 };
 
-// const deleteSaveList = async ({ idUser, idMovie }) => {
-//   var requestOptions = {
-//     method: 'GET',
-//     redirect: 'follow',
-//   };
+const addPost = async ({ idUser, idMovie, title, content}) => {
+  var myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'application/json');
 
-//   try {
-//     const response = await fetch(deleteSaveListUrl + idMovie + '/' + idUser, requestOptions);
+  var raw = JSON.stringify({
+    chuDe: title,
+    noiDung: content,
+  });
 
-//     if (!response.ok) {
-//       throw new Error('Không thể kết nối đến máy chủ');
-//     }
-//     const result = await response.json();
-//     return result; // Trả về kết quả cho người gọi hàm
-//   } catch (error) {
-//     // Xử lý lỗi nếu cần
-//     throw error;
-//   }
-// };
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow',
+  };
+  try {
+    console.log(addPostUrl + idUser + '/' + idMovie,)
+    const response = await fetch(addPostUrl + idUser + '/' + idMovie, requestOptions);
+
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+};
 
 module.exports = {
   LoginApi,
@@ -297,5 +294,5 @@ module.exports = {
   deleteStatus,
   getListSave,
   editSaveList,
-
+  addPost,
 };

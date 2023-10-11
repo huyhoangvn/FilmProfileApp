@@ -1,15 +1,4 @@
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  TouchableWithoutFeedback,
-  Image,
-  Dimensions,
-  Text,
-  FlatList,
-  Button,
-  Alert,
-} from 'react-native';
+import { StyleSheet, View, TextInput, TouchableWithoutFeedback, Image, Dimensions, Text, FlatList, Button, Alert } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -31,7 +20,6 @@ export default function BodySearch({ navigation }) {
   const [status, setStatus] = useState(-1);
   const [nameMovie, setNameMovie] = useState(-1);
   const [modalVisible, setModalVisible] = useState(false);
-
   const [dataIsSelected, setDataSelection] = useState(false);
   const [dataPoint, setDataPoint] = useState();
   const [dataStatus, setDataStatus] = useState();
@@ -94,11 +82,19 @@ export default function BodySearch({ navigation }) {
     const idUser = await getDataStorage({ nameData: 'idUser' });
 
     const result = await deleteStatus({ idMovie: idMovie, idUser: idUser });
-    if(result.message === "Xóa thành công"){
+    if (result.message === 'Xóa thành công') {
       getDataSave();
       alert(result.message);
     }
+  };
 
+  const handlerShare = (idUser,idMovie,imageMovie, nameMovie) => {
+    navigation.navigate('ShareScreen', {
+      idUser: idUser,
+      idMovie: idMovie,
+      imageMovie: imageMovie,
+      nameMovie: nameMovie,
+    });
   };
 
   useEffect(() => {
@@ -139,27 +135,20 @@ export default function BodySearch({ navigation }) {
           }}
         >
           <View style={styles.viewItem}>
-            <Image
-              source={{ uri: image185(item.hinhAnh) }}
-              style={{ width: 80, height: 130, borderRadius: 15 }}
-            />
+            <Image source={{ uri: image185(item.hinhAnh) }} style={{ width: 80, height: 130, borderRadius: 15 }} />
 
             <View style={{ marginLeft: 15 }}>
-              <Text style={{ color: '#F8EE0D', fontSize: 25, fontWeight: 'bold', marginTop: 5 }}>
-                {item.tenPhim.length > 20 ? item.tenPhim.slice(0, 15) + '...' : item.tenPhim}
-              </Text>
-
+              <Text style={{ color: '#F8EE0D', fontSize: 25, fontWeight: 'bold', marginTop: 5 }}>{item.tenPhim.length > 20 ? item.tenPhim.slice(0, 15) + '...' : item.tenPhim}</Text>
               <Text style={styles.text_two}>
                 <Text style={styles.text_one}>Đánh giá: </Text>
-                {item.danhGia}
+                {item.danhGia === -1 ? 'Chưa đánh giá' : item.danhGia}
               </Text>
 
               <Text style={styles.text_two}>
-                <Text style={styles.text_one}>Trạng thái xem: </Text>: {item.trangThaiXem}
+                <Text style={styles.text_one}>Trạng thái xem: </Text>
+                {item.trangThaiXem === 0 ? 'Chưa xem' : item.trangThaiXem === 2 ? 'Sắp xem' : item.trangThaiXem === 1 ? 'Đã xem' : 'Trạng thái không rõ'}
               </Text>
-              <Text style={{ color: '#FFA800', fontSize: 15, marginTop: 5, fontWeight: 'bold' }}>
-                {yeuThich}
-              </Text>
+              <Text style={{ color: '#FFA800', fontSize: 15, marginTop: 5, fontWeight: 'bold' }}>Yêu thích: {yeuThich}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -184,7 +173,7 @@ export default function BodySearch({ navigation }) {
           <TouchableOpacity
             style={styles.button2}
             onPress={() => {
-              // navigation.navigate('HomeScreen');
+              handlerShare(item.idPhim,item.idNguoiDung,item.hinhAnh, item.tenPhim);
             }}
           >
             <Text style={styles.buttonText}>Chia sẻ</Text>
@@ -231,12 +220,7 @@ export default function BodySearch({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
-          value={searchQuery}
-          onChangeText={(text) => setSearchQuery(text)}
-          placeholder="Search"
-        />
+        <TextInput style={styles.textInput} value={searchQuery} onChangeText={(text) => setSearchQuery(text)} placeholder="Search" />
         <TouchableOpacity
           onPress={() => {
             search();
@@ -247,21 +231,9 @@ export default function BodySearch({ navigation }) {
       </View>
 
       <View style={styles.checkboxContainer}>
-        <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={{ marginLeft: 4, borderColor: 'white' }}
-        />
+        <CheckBox value={isSelected} onValueChange={setSelection} style={{ marginLeft: 4, borderColor: 'white' }} />
         <Text style={{ color: 'white', marginLeft: 5 }}>Yêu thích</Text>
-        <Modal
-          visible={modalVisible}
-          point={dataPoint}
-          status={dataStatus}
-          like={dataIsSelected}
-          idUser={idUser}
-          idMovie={idMovie}
-          onClose={() => setModalVisible(false)}
-        />
+        <Modal visible={modalVisible} point={dataPoint} status={dataStatus} like={dataIsSelected} idUser={idUser} idMovie={idMovie} onClose={() => setModalVisible(false)} />
 
         <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'flex-end' }}>
           <Dropdown
