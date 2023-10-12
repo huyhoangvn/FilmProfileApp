@@ -88,7 +88,7 @@ export default function BodySearch({ navigation }) {
     }
   };
 
-  const handlerShare = (idUser,idMovie,imageMovie, nameMovie) => {
+  const handlerShare = (idUser, idMovie, imageMovie, nameMovie) => {
     navigation.navigate('ShareScreen', {
       idUser: idUser,
       idMovie: idMovie,
@@ -173,7 +173,7 @@ export default function BodySearch({ navigation }) {
           <TouchableOpacity
             style={styles.button2}
             onPress={() => {
-              handlerShare(item.idPhim,item.idNguoiDung,item.hinhAnh, item.tenPhim);
+              handlerShare(item.idPhim, item.idNguoiDung, item.hinhAnh, item.tenPhim);
             }}
           >
             <Text style={styles.buttonText}>Chia sẻ</Text>
