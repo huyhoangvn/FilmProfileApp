@@ -46,8 +46,7 @@ function Header({ navigation }) {
 //Main
 export default function ShareScreen({ navigation }) {
   const route = useRoute();
-  const { idUser, idMovie, imageMovie, nameMovie } = route.params;
-
+  const { idUser, idReview, imageMovie, nameMovie } = route.params;
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
 
@@ -57,7 +56,7 @@ export default function ShareScreen({ navigation }) {
       return;
     }
 
-    const result = await addPost({ idUser: idUser, idMovie: idMovie, title: title, content: content });
+    const result = await addPost({ idUser: idUser, idReview: idReview, title: title, content: content });
     if (result.message === 'Thêm bài đăng thành công') {
       alert(result.message);
     } else {
@@ -70,61 +69,62 @@ export default function ShareScreen({ navigation }) {
       <View>
         <Header navigation={navigation}></Header>
       </View>
+      <ScrollView>
+        <View style={{ margin: 10 }}>
+          <Text style={{ color: '#F8EE0D', fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>{nameMovie}</Text>
+          <Image
+            // source={require('../assets/images/moviePoster1.png')}
+            source={{ uri: image500(imageMovie) }}
+            style={{
+              width: '100%',
+              height: 270,
+              borderRadius: 5,
+              resizeMode: 'stretch',
+              backgroundColor: 'red', //stretch
+              // Sử dụng 'cover' để đảm bảo ảnh không bị biến dạng và không mất chi tiết
+            }}
+          />
 
-      <View style={{ margin: 10 }}>
-        <Text style={{ color: '#F8EE0D', fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>{nameMovie}</Text>
-        <Image
-          // source={require('../assets/images/moviePoster1.png')}
-          source={{ uri: image500(imageMovie) }}
-          style={{
-            width: '100%',
-            height: 270,
-            borderRadius: 5,
-            resizeMode: 'stretch',
-            backgroundColor: 'red', //stretch
-            // Sử dụng 'cover' để đảm bảo ảnh không bị biến dạng và không mất chi tiết
-          }}
-        />
-
-        <Text style={styles.styleText}>Tiêu Đề</Text>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={(data) => {
-            setTitle(data);
-          }}
-          placeholder="Nhập tiêu để"
-          placeholderTextColor="white"
-        />
-        <Text style={styles.styleText}>Nội Dung</Text>
-        <TextInput
-          style={{
-            width: '100%',
-            height: 140,
-            borderColor: '#909090',
-            borderWidth: 0.5,
-            alignSelf: 'center',
-            marginTop: 10,
-            paddingLeft: 10,
-            borderRadius: 5,
-            color: 'white',
-          }}
-          placeholder="Nhập nội dung"
-          placeholderTextColor="white" // Đặt màu cho placeholder
-          multiline={true} // Cho phép nhập nhiều dòng
-          numberOfLines={4}
-          onChangeText={(data) => {
-            setContent(data);
-          }}
-        />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            handlerAddPost();
-          }}
-        >
-          <Text style={styles.buttonText}>Dăng bài</Text>
-        </TouchableOpacity>
-      </View>
+          <Text style={styles.styleText}>Tiêu Đề</Text>
+          <TextInput
+            style={styles.textInput}
+            onChangeText={(data) => {
+              setTitle(data);
+            }}
+            placeholder="Nhập tiêu để"
+            placeholderTextColor="white"
+          />
+          <Text style={styles.styleText}>Nội Dung</Text>
+          <TextInput
+            style={{
+              width: '100%',
+              height: 140,
+              borderColor: '#909090',
+              borderWidth: 0.5,
+              alignSelf: 'center',
+              marginTop: 10,
+              paddingLeft: 10,
+              borderRadius: 5,
+              color: 'white',
+            }}
+            placeholder="Nhập nội dung"
+            placeholderTextColor="white" // Đặt màu cho placeholder
+            multiline={true} // Cho phép nhập nhiều dòng
+            numberOfLines={4}
+            onChangeText={(data) => {
+              setContent(data);
+            }}
+          />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              handlerAddPost();
+            }}
+          >
+            <Text style={styles.buttonText}>Dăng bài</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
