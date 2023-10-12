@@ -254,7 +254,7 @@ const editSaveList = async ({ idUser, idMovie, status, like, point }) => {
   }
 };
 
-const addPost = async ({ idUser, idMovie, title, content}) => {
+const addPost = async ({ idUser, idReview, title, content}) => {
   var myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
 
@@ -270,8 +270,8 @@ const addPost = async ({ idUser, idMovie, title, content}) => {
     redirect: 'follow',
   };
   try {
-    console.log(addPostUrl + idUser + '/' + idMovie,)
-    const response = await fetch(addPostUrl + idUser + '/' + idMovie, requestOptions);
+    console.log(addPostUrl + idUser + '/' + idReview,)
+    const response = await fetch(addPostUrl + idUser + '/' + idReview, requestOptions);
 
     if (!response.ok) {
       throw new Error('Không thể kết nối đến máy chủ');

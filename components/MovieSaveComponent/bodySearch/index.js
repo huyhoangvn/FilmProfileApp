@@ -53,7 +53,6 @@ export default function BodySearch({ navigation }) {
     } else if (isSelected === false) {
       love = -1;
     }
-    console.log(love);
     const idUser = await getDataStorage({ nameData: 'idUser' });
     const details = await getListSave({
       idUser: idUser,
@@ -88,10 +87,10 @@ export default function BodySearch({ navigation }) {
     }
   };
 
-  const handlerShare = (idUser,idMovie,imageMovie, nameMovie) => {
+  const handlerShare = (idUser, idReview, imageMovie, nameMovie) => {
     navigation.navigate('ShareScreen', {
       idUser: idUser,
-      idMovie: idMovie,
+      idReview: idReview,
       imageMovie: imageMovie,
       nameMovie: nameMovie,
     });
@@ -173,7 +172,7 @@ export default function BodySearch({ navigation }) {
           <TouchableOpacity
             style={styles.button2}
             onPress={() => {
-              handlerShare(item.idPhim,item.idNguoiDung,item.hinhAnh, item.tenPhim);
+              handlerShare(item._id, item.idNguoiDung, item.hinhAnh, item.tenPhim);
             }}
           >
             <Text style={styles.buttonText}>Chia sẻ</Text>
