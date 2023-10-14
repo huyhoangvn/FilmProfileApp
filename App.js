@@ -11,6 +11,7 @@ import SearchScreen from './screen/SearchScreen';
 import DetailScreen from './screen/DetailScreen';
 import EditScreen from './screen/EditScreen';
 import FriendSearchScreen from './screen/FriendSearchScreen';
+import ShareScreen from './screen/ShareScreen';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 const Stack = createStackNavigator();
@@ -150,6 +151,12 @@ export default function App() {
         <Stack.Screen
           name="EditScreen"
           component={EditScreen}
+          options={{ headerShown: false, gestureEnabled: false }} // Giữ thanh header, nhưng loại bỏ văn bản (tên trang) trong header
+        />
+
+        <Stack.Screen
+          name="ShareScreen"
+          component={ShareScreen}
           options={{ headerShown: false, gestureEnabled: false }} // Giữ thanh header, nhưng loại bỏ văn bản (tên trang) trong header
         />
       </Stack.Navigator>

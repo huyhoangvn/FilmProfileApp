@@ -1,14 +1,4 @@
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  TouchableWithoutFeedback,
-  Image,
-  Dimensions,
-  Text,
-  FlatList,
-  Button,
-} from 'react-native';
+import { StyleSheet, View, TextInput, TouchableWithoutFeedback, Image, Dimensions, Text, FlatList, Button, Alert } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -16,8 +6,9 @@ import { getSearchMovie, image185 } from '../../../api/flimsDB';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import CheckBox from 'expo-checkbox';
 import { Dropdown } from 'react-native-element-dropdown';
-import { getListSave } from '../../../api/apiApp';
+import { getListSave, deleteStatus } from '../../../api/apiApp';
 import { getDataStorage, deleteDataStorage } from '../../../config/Storage';
+import Modal from '../../../components/MovieSaveComponent/Modal';
 
 var { width, height } = Dimensions.get('window');
 
@@ -28,7 +19,12 @@ export default function BodySearch({ navigation }) {
   const [point, setPoint] = useState(-1);
   const [status, setStatus] = useState(-1);
   const [nameMovie, setNameMovie] = useState(-1);
-  console.log(isSelected);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [dataIsSelected, setDataSelection] = useState(false);
+  const [dataPoint, setDataPoint] = useState();
+  const [dataStatus, setDataStatus] = useState();
+  const [idUser, setIdUser] = useState();
+  const [idMovie, setIdMovie] = useState();
   const dataDropDow = [
     { id: -1, name: 'Xem tất cả' },
     { id: 0, name: 'Chưa xem' },
@@ -57,7 +53,6 @@ export default function BodySearch({ navigation }) {
     } else if (isSelected === false) {
       love = -1;
     }
-    console.log(love);
     const idUser = await getDataStorage({ nameData: 'idUser' });
     const details = await getListSave({
       idUser: idUser,
@@ -80,7 +75,25 @@ export default function BodySearch({ navigation }) {
       review: status,
     });
     setData(details);
-    console.log(details);
+  };
+
+  const handelDelete = async (idMovie) => {
+    const idUser = await getDataStorage({ nameData: 'idUser' });
+
+    const result = await deleteStatus({ idMovie: idMovie, idUser: idUser });
+    if (result.message === 'Xóa thành công') {
+      getDataSave();
+      alert(result.message);
+    }
+  };
+
+  const handlerShare = (idUser, idReview, imageMovie, nameMovie) => {
+    navigation.navigate('ShareScreen', {
+      idUser: idUser,
+      idReview: idReview,
+      imageMovie: imageMovie,
+      nameMovie: nameMovie,
+    });
   };
 
   useEffect(() => {
@@ -90,8 +103,12 @@ export default function BodySearch({ navigation }) {
   useFocusEffect(
     React.useCallback(() => {
       getDataSave();
-    }, []),
+    }, [modalVisible]),
   );
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
 
   const renderItem = ({ item, index }) => {
     let yeuThich;
@@ -99,6 +116,12 @@ export default function BodySearch({ navigation }) {
       yeuThich = 'N/A';
     } else {
       yeuThich = 'Yêu Thích';
+    }
+    var love;
+    if (isSelected === true) {
+      love = 1;
+    } else if (isSelected === false) {
+      love = -1;
     }
     return (
       <View>
@@ -111,46 +134,45 @@ export default function BodySearch({ navigation }) {
           }}
         >
           <View style={styles.viewItem}>
-            <Image
-              source={{ uri: image185(item.hinhAnh) }}
-              style={{ width: 80, height: 130, borderRadius: 15 }}
-            />
-            <View style={{ marginLeft: 15 }}>
-              <Text style={{ color: '#F8EE0D', fontSize: 25, fontWeight: 'bold', marginTop: 5 }}>
-                {item.tenPhim.length > 20 ? item.tenPhim.slice(0, 15) + '...' : item.tenPhim}
-              </Text>
+            <Image source={{ uri: image185(item.hinhAnh) }} style={{ width: 80, height: 130, borderRadius: 15 }} />
 
+            <View style={{ marginLeft: 15 }}>
+              <Text style={{ color: '#F8EE0D', fontSize: 25, fontWeight: 'bold', marginTop: 5 }}>{item.tenPhim.length > 20 ? item.tenPhim.slice(0, 15) + '...' : item.tenPhim}</Text>
               <Text style={styles.text_two}>
                 <Text style={styles.text_one}>Đánh giá: </Text>
-                {item.danhGia}
+                {item.danhGia === -1 ? 'Chưa đánh giá' : item.danhGia}
               </Text>
 
               <Text style={styles.text_two}>
-                <Text style={styles.text_one}>Trạng thái xem: </Text>: {item.trangThaiXem}
+                <Text style={styles.text_one}>Trạng thái xem: </Text>
+                {item.trangThaiXem === 0 ? 'Chưa xem' : item.trangThaiXem === 2 ? 'Sắp xem' : item.trangThaiXem === 1 ? 'Đã xem' : 'Trạng thái không rõ'}
               </Text>
-              <Text style={{ color: '#FFA800', fontSize: 15, marginTop: 5, fontWeight: 'bold' }}>
-                {yeuThich}
-              </Text>
+              <Text style={{ color: '#FFA800', fontSize: 15, marginTop: 5, fontWeight: 'bold' }}>Yêu thích: {yeuThich}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
+
         <View style={styles.viewButton}>
           <TouchableOpacity
+            key={index}
             style={styles.button}
-            onPress={() => {
-  
-
+            onPress={async () => {
+              const idUser = await getDataStorage({ nameData: 'idUser' });
+              openModal();
+              setDataPoint(item.danhGia);
+              setDataStatus(item.trangThaiXem);
+              setDataSelection(item.yeuThich);
+              setIdUser(idUser);
+              setIdMovie(item.idPhim);
             }}
           >
             <Text style={styles.buttonText}>Sửa</Text>
           </TouchableOpacity>
 
-
           <TouchableOpacity
             style={styles.button2}
             onPress={() => {
-             
-              // navigation.navigate('HomeScreen');
+              handlerShare(item._id, item.idNguoiDung, item.hinhAnh, item.tenPhim);
             }}
           >
             <Text style={styles.buttonText}>Chia sẻ</Text>
@@ -159,14 +181,37 @@ export default function BodySearch({ navigation }) {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-         
-              // navigation.navigate('HomeScreen');
+              Alert.alert(
+                'Bạn có muốn xóa?',
+                '',
+                [
+                  {
+                    text: 'Cancel',
+                    onPress: () => {},
+                    style: 'cancel',
+                  },
+                  {
+                    text: 'OK',
+                    onPress: () => {
+                      handelDelete(item.idPhim);
+                    },
+                  },
+                ], // Thêm ngoặc đóng ở đây
+              );
             }}
           >
             <Text style={styles.buttonText}>Xoá</Text>
           </TouchableOpacity>
         </View>
-        <View style = {{width: '100%', height: 0.5, backgroundColor: '#686868', marginBottom: 10, marginTop: 5}}></View>
+        <View
+          style={{
+            width: '100%',
+            height: 0.5,
+            backgroundColor: '#686868',
+            marginBottom: 10,
+            marginTop: 5,
+          }}
+        ></View>
       </View>
     );
   };
@@ -174,12 +219,7 @@ export default function BodySearch({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
-          value={searchQuery}
-          onChangeText={(text) => setSearchQuery(text)}
-          placeholder="Search"
-        />
+        <TextInput style={styles.textInput} value={searchQuery} onChangeText={(text) => setSearchQuery(text)} placeholder="Search" />
         <TouchableOpacity
           onPress={() => {
             search();
@@ -190,12 +230,9 @@ export default function BodySearch({ navigation }) {
       </View>
 
       <View style={styles.checkboxContainer}>
-        <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={{ marginLeft: 4, borderColor: 'white' }}
-        />
+        <CheckBox value={isSelected} onValueChange={setSelection} style={{ marginLeft: 4, borderColor: 'white' }} />
         <Text style={{ color: 'white', marginLeft: 5 }}>Yêu thích</Text>
+        <Modal visible={modalVisible} point={dataPoint} status={dataStatus} like={dataIsSelected} idUser={idUser} idMovie={idMovie} onClose={() => setModalVisible(false)} />
 
         <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'flex-end' }}>
           <Dropdown
@@ -236,6 +273,7 @@ export default function BodySearch({ navigation }) {
           data={data}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
+
           // numColumns={false} // Chia thành hai cột
           // columnWrapperStyle={{ justifyContent: 'space-between' }} // Điều chỉnh khoảng cách giữa các cột
         />
@@ -332,12 +370,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
-  
   },
   viewButton: {
     marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 10
+    marginBottom: 10,
   },
 });

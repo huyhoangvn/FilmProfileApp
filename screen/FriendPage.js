@@ -11,7 +11,7 @@ import React, { useState } from 'react';
 
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { getMovieTrending, detailMovies, getCastMovie, getListSave } from '../api/apiApp';
+import { getMovieTrending, detailMovies, getCastMovie, getListSave,editSaveList} from '../api/apiApp';
 import { getDataStorage } from '../config/Storage';
 
 // const uid = getDataStorage({nameData: 'idUser'})
@@ -44,12 +44,12 @@ export default function FriendPage({ navigation }) {
       <Button
         title="ấn"
         onPress={async () => {
-          const details = await getListSave({
+          const details = await editSaveList({
             idUser: '651b07d81b75b48fecf2016a',
-            love: -1,
+            idMovie: '980489',
+            like: -1,
             status: -1,
-            nameMovie: -1,
-            review: -1,
+            point: -1,
           });
           console.log(details);
         }}
