@@ -21,6 +21,9 @@ var deleteStatusUrl = baseLink + '/api/xoaKhoiDanhSach/';
 var getListSaveUrl = baseLink + '/api/getDanhSach/';
 var editSaveListUrl = baseLink + '/api/suaDanhGia/';
 var addPostUrl = baseLink + '/api/themBaiDang/';
+var getUsersListUrl = baseLink + '/api/getDanhSachTimNguoiDung/'
+var addFriendUrl  = baseLink + '/api/themBanBe/';
+var removeFriendUrl = baseLink + '/api/xoaBanbe/';
 
 const LoginApi = async ({ userName, password }) => {
   var myHeaders = new Headers();
@@ -284,6 +287,61 @@ const addPost = async ({ idUser, idReview, title, content}) => {
   }
 };
 
+//Lấy danh sách người dùng
+const getUsersListApi =  async (idUser, tenTimKiem, trang) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    const response = await fetch(getUsersListUrl + idUser + '/' + `?timKiemTen=${tenTimKiem}&trang=${trang}`, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+//Thêm bạn bè vào danh sách
+const removeFriendApi =  async (idTheoDoi, idUser) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    const response = await fetch(removeFriendUrl + idTheoDoi + '/' + idUser, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+//Xóa bạn bè khỏi danh sách
+const addFriendApi =  async (idTheoDoi, idUser) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    console.log(addFriendUrl + idTheoDoi + '/' + idUser);
+    const response = await fetch(addFriendUrl + idTheoDoi + '/' + idUser, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   LoginApi,
   registerApi,
@@ -295,4 +353,7 @@ module.exports = {
   getListSave,
   editSaveList,
   addPost,
+  getUsersListApi,
+  addFriendApi,
+  removeFriendApi
 };
