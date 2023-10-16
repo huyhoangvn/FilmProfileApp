@@ -22,6 +22,7 @@ const Friend = function ({ id, hoTen, moTa, ngaySinh, hinhAnh, trangThaiKetBan }
                     await removeFriendApi(id, idNguoiDungHienTai).then(()=>{
                         setColor("#19AFDF");
                         setKetBan("Chưa kết bạn");
+                        Alert.alert('Hủy theo dõi thành công');
                     }).catch(()=>{
                         Alert.alert('Hủy theo dõi thất bại');
                     })
@@ -40,6 +41,7 @@ const Friend = function ({ id, hoTen, moTa, ngaySinh, hinhAnh, trangThaiKetBan }
                     await addFriendApi(id, idNguoiDungHienTai).then(()=>{
                         setColor("#6D736D");
                         setKetBan("Đã kết bạn");
+                        Alert.alert('Theo dõi thành công');
                     }).catch(()=>{
                         Alert.alert('Theo dõi thất bại');
                     })
