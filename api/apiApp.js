@@ -312,7 +312,8 @@ const removeFriendApi =  async (idTheoDoi, idUser) => {
     redirect: 'follow',
   };
   try {
-    const response = await fetch(removeFriendUrl + idTheoDoi + '/' + idUser, requestOptions);
+    console.log(removeFriendUrl + idUser + '/' + idTheoDoi);
+    const response = await fetch(removeFriendUrl + idUser + '/' + idTheoDoi, requestOptions);
     if (!response.ok) {
       throw new Error('Không thể kết nối đến máy chủ');
     }
@@ -331,7 +332,7 @@ const addFriendApi =  async (idTheoDoi, idUser) => {
   };
   try {
     console.log(addFriendUrl + idTheoDoi + '/' + idUser);
-    const response = await fetch(addFriendUrl + idTheoDoi + '/' + idUser, requestOptions);
+    const response = await fetch(addFriendUrl + idUser + '/' + idTheoDoi, requestOptions);
     if (!response.ok) {
       throw new Error('Không thể kết nối đến máy chủ');
     }
