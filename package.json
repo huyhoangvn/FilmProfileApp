@@ -31,7 +31,8 @@
     "react-native-radio-buttons-group": "^3.0.5",
     "react-native-snap-carousel": "^4.0.0-beta.6",
     "react-native-tab-view": "^3.5.2",
-    "react-native-vector-icons": "^10.0.0"
+    "react-native-vector-icons": "^10.0.0",
+    "expo-linear-gradient": "~12.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

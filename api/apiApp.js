@@ -21,6 +21,11 @@ var deleteStatusUrl = baseLink + '/api/xoaKhoiDanhSach/';
 var getListSaveUrl = baseLink + '/api/getDanhSach/';
 var editSaveListUrl = baseLink + '/api/suaDanhGia/';
 var addPostUrl = baseLink + '/api/themBaiDang/';
+var getPostFriendUrl = baseLink + '/api/getBaiDangBanBe/';
+var addLikePostUrl = baseLink + '/api/themLike/';
+var deleteLikePostUrl = baseLink + '/api/xoaLike/';
+var getLikePostUrl = baseLink + '/api/getAllLike/';
+var getPointReviewUrl = baseLink + '/api/getDiemDanhGia/';
 
 const LoginApi = async ({ userName, password }) => {
   var myHeaders = new Headers();
@@ -254,7 +259,7 @@ const editSaveList = async ({ idUser, idMovie, status, like, point }) => {
   }
 };
 
-const addPost = async ({ idUser, idReview, title, content}) => {
+const addPost = async ({ idUser, idReview, title, content }) => {
   var myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
 
@@ -270,7 +275,7 @@ const addPost = async ({ idUser, idReview, title, content}) => {
     redirect: 'follow',
   };
   try {
-    console.log(addPostUrl + idUser + '/' + idReview,)
+    console.log(addPostUrl + idUser + '/' + idReview);
     const response = await fetch(addPostUrl + idUser + '/' + idReview, requestOptions);
 
     if (!response.ok) {
@@ -278,6 +283,100 @@ const addPost = async ({ idUser, idReview, title, content}) => {
     }
     const result = await response.json();
     return result; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+};
+
+const getPostFriend = async ({ idUser }) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+
+  try {
+    const response = await fetch(getPostFriendUrl + idUser, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+};
+
+const addLikePost = async ({ idUser, idPost }) => {
+  var requestOptions = {
+    method: 'POST',
+    redirect: 'follow',
+  };
+
+  try {
+    const response = await fetch(addLikePostUrl + idUser + '/' + idPost, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+};
+
+const deleteLikePost = async ({ idUser, idPost }) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+
+  try {
+    const response = await fetch(deleteLikePostUrl + idUser + '/' + idPost, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+};
+
+const getLikePost = async ({ idPost }) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+
+  try {
+    const response = await fetch(getLikePostUrl + idPost, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+};
+
+const getPointReview = async ({ idMovie }) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  try {
+    const response = await fetch(getPointReviewUrl + idMovie, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data; // Trả về kết quả cho người gọi hàm
   } catch (error) {
     // Xử lý lỗi nếu cần
     throw error;
@@ -295,4 +394,9 @@ module.exports = {
   getListSave,
   editSaveList,
   addPost,
+  getPostFriend,
+  addLikePost,
+  deleteLikePost,
+  getLikePost,
+  getPointReview,
 };
