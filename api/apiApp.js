@@ -22,6 +22,7 @@ var getListSaveUrl = baseLink + '/api/getDanhSach/';
 var editSaveListUrl = baseLink + '/api/suaDanhGia/';
 var addPostUrl = baseLink + '/api/themBaiDang/';
 var getUsersListUrl = baseLink + '/api/getDanhSachTimNguoiDung/'
+var getUserFriendsListUrl = baseLink + '/api/getDanhSachBanBe/'
 var addFriendUrl  = baseLink + '/api/themBanBe/';
 var removeFriendUrl = baseLink + '/api/xoaBanbe/';
 
@@ -343,6 +344,25 @@ const addFriendApi =  async (idTheoDoi, idUser) => {
   }
 }
 
+//Lấy danh sách bạn đã theo dõi
+const getUserFriendsListApi =  async (idUser) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    console.log(getUsersListUrl + idUser);
+    const response = await fetch(getUserFriendsListUrl + idUser, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   LoginApi,
   registerApi,
@@ -356,5 +376,6 @@ module.exports = {
   addPost,
   getUsersListApi,
   addFriendApi,
-  removeFriendApi
+  removeFriendApi,
+  getUserFriendsListApi
 };
