@@ -26,6 +26,10 @@ var addLikePostUrl = baseLink + '/api/themLike/';
 var deleteLikePostUrl = baseLink + '/api/xoaLike/';
 var getLikePostUrl = baseLink + '/api/getAllLike/';
 var getPointReviewUrl = baseLink + '/api/getDiemDanhGia/';
+var getUsersListUrl = baseLink + '/api/getDanhSachTimNguoiDung/'
+var getUserFriendsListUrl = baseLink + '/api/getDanhSachBanBe/'
+var addFriendUrl  = baseLink + '/api/themBanBe/';
+var removeFriendUrl = baseLink + '/api/xoaBanbe/';
 
 const LoginApi = async ({ userName, password }) => {
   var myHeaders = new Headers();
@@ -294,7 +298,6 @@ const getPostFriend = async ({ idUser }) => {
     method: 'GET',
     redirect: 'follow',
   };
-
   try {
     const response = await fetch(getPostFriendUrl + idUser, requestOptions);
     if (!response.ok) {
@@ -351,7 +354,6 @@ const getLikePost = async ({ idPost }) => {
     method: 'GET',
     redirect: 'follow',
   };
-
   try {
     const response = await fetch(getLikePostUrl + idPost, requestOptions);
     if (!response.ok) {
@@ -399,4 +401,8 @@ module.exports = {
   deleteLikePost,
   getLikePost,
   getPointReview,
+  getUsersListApi,
+  addFriendApi,
+  removeFriendApi,
+  getUserFriendsListApi
 };
