@@ -18,12 +18,12 @@ export default function Header({ navigation }) {
       </View>
 
       <View style={styles.viewTitle}>
-          <Text style = {{color: 'white', fontSize: 20, fontWeight: 'bold'}}>Chi tiết Phim</Text>
+          <Text style = {{color: 'white', fontSize: 20, fontWeight: 'bold'}}>Tìm Kiếm</Text>
       </View>
       
       <View style={styles.viewIcon}>
         <TouchableOpacity onPress={() => {navigation.navigate('SearchScreen')}}>
-          <Icon name="plus" size={25} color={'#19AFDF'}></Icon>
+          {/* <Icon name="plus" size={25} color={'#19AFDF'}></Icon> */}
         </TouchableOpacity>
       </View>
     </View>
