@@ -39,6 +39,7 @@ export default function FriendPage({ navigation }) {
   const [dataPoint,setDataPoint] = useState();
 
   const getDataApi = async () => {
+    const idUser = await getDataStorage({ nameData: 'idUser' })
     try {
       const details = await getPostFriend({
         idUser: '6523a07b075e06d97c19dda0',
@@ -66,11 +67,15 @@ export default function FriendPage({ navigation }) {
 
   useEffect(() => {
     getDataApi();
-  }, []);
+  }, [dataPoint]);
 
   useEffect(() => {
     getLikeData();
   });
+
+  // useEffect(() => {
+  //     getPointData();
+  // },[dataPoint]);
 
   useFocusEffect(
     React.useCallback(() => {
