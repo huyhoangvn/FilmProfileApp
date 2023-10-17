@@ -385,6 +385,81 @@ const getPointReview = async ({ idMovie }) => {
   }
 };
 
+//Lấy danh sách người dùng
+const getUsersListApi =  async (idUser, tenTimKiem, trang) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    const response = await fetch(getUsersListUrl + idUser + '/' + `?timKiemTen=${tenTimKiem}&trang=${trang}`, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+//Thêm bạn bè vào danh sách
+const removeFriendApi =  async (idTheoDoi, idUser) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    console.log(removeFriendUrl + idUser + '/' + idTheoDoi);
+    const response = await fetch(removeFriendUrl + idUser + '/' + idTheoDoi, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+//Xóa bạn bè khỏi danh sách
+const addFriendApi =  async (idTheoDoi, idUser) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    console.log(addFriendUrl + idTheoDoi + '/' + idUser);
+    const response = await fetch(addFriendUrl + idUser + '/' + idTheoDoi, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+//Lấy danh sách bạn đã theo dõi
+const getUserFriendsListApi =  async (idUser) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    console.log(getUsersListUrl + idUser);
+    const response = await fetch(getUserFriendsListUrl + idUser, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   LoginApi,
   registerApi,
