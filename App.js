@@ -45,7 +45,7 @@ export default function App() {
           })}
         />
         <Tab.Screen
-          name="Bạn Bè"
+          name="Bài Đăng"
           component={FriendPage}
           options={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {

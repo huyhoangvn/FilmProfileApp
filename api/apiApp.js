@@ -21,6 +21,11 @@ var deleteStatusUrl = baseLink + '/api/xoaKhoiDanhSach/';
 var getListSaveUrl = baseLink + '/api/getDanhSach/';
 var editSaveListUrl = baseLink + '/api/suaDanhGia/';
 var addPostUrl = baseLink + '/api/themBaiDang/';
+var getPostFriendUrl = baseLink + '/api/getBaiDangBanBe/';
+var addLikePostUrl = baseLink + '/api/themLike/';
+var deleteLikePostUrl = baseLink + '/api/xoaLike/';
+var getLikePostUrl = baseLink + '/api/getAllLike/';
+var getPointReviewUrl = baseLink + '/api/getDiemDanhGia/';
 var getUsersListUrl = baseLink + '/api/getDanhSachTimNguoiDung/'
 var getUserFriendsListUrl = baseLink + '/api/getDanhSachBanBe/'
 var addFriendUrl  = baseLink + '/api/themBanBe/';
@@ -258,7 +263,7 @@ const editSaveList = async ({ idUser, idMovie, status, like, point }) => {
   }
 };
 
-const addPost = async ({ idUser, idReview, title, content}) => {
+const addPost = async ({ idUser, idReview, title, content }) => {
   var myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
 
@@ -274,7 +279,7 @@ const addPost = async ({ idUser, idReview, title, content}) => {
     redirect: 'follow',
   };
   try {
-    console.log(addPostUrl + idUser + '/' + idReview,)
+    console.log(addPostUrl + idUser + '/' + idReview);
     const response = await fetch(addPostUrl + idUser + '/' + idReview, requestOptions);
 
     if (!response.ok) {
@@ -288,80 +293,97 @@ const addPost = async ({ idUser, idReview, title, content}) => {
   }
 };
 
-//Lấy danh sách người dùng
-const getUsersListApi =  async (idUser, tenTimKiem, trang) => {
+const getPostFriend = async ({ idUser }) => {
   var requestOptions = {
     method: 'GET',
     redirect: 'follow',
   };
   try {
-    const response = await fetch(getUsersListUrl + idUser + '/' + `?timKiemTen=${tenTimKiem}&trang=${trang}`, requestOptions);
+    const response = await fetch(getPostFriendUrl + idUser, requestOptions);
     if (!response.ok) {
       throw new Error('Không thể kết nối đến máy chủ');
     }
     const result = await response.json();
-    return result.data;
+    return result.data; // Trả về kết quả cho người gọi hàm
   } catch (error) {
+    // Xử lý lỗi nếu cần
     throw error;
   }
-}
+};
 
-//Thêm bạn bè vào danh sách
-const removeFriendApi =  async (idTheoDoi, idUser) => {
+const addLikePost = async ({ idUser, idPost }) => {
   var requestOptions = {
-    method: 'GET',
+    method: 'POST',
     redirect: 'follow',
   };
-  try {
-    console.log(removeFriendUrl + idUser + '/' + idTheoDoi);
-    const response = await fetch(removeFriendUrl + idUser + '/' + idTheoDoi, requestOptions);
-    if (!response.ok) {
-      throw new Error('Không thể kết nối đến máy chủ');
-    }
-    const result = await response.json();
-    return result.data;
-  } catch (error) {
-    throw error;
-  }
-}
 
-//Xóa bạn bè khỏi danh sách
-const addFriendApi =  async (idTheoDoi, idUser) => {
-  var requestOptions = {
-    method: 'GET',
-    redirect: 'follow',
-  };
   try {
-    console.log(addFriendUrl + idTheoDoi + '/' + idUser);
-    const response = await fetch(addFriendUrl + idUser + '/' + idTheoDoi, requestOptions);
+    const response = await fetch(addLikePostUrl + idUser + '/' + idPost, requestOptions);
     if (!response.ok) {
       throw new Error('Không thể kết nối đến máy chủ');
     }
     const result = await response.json();
-    return result.data;
+    return result.data; // Trả về kết quả cho người gọi hàm
   } catch (error) {
+    // Xử lý lỗi nếu cần
     throw error;
   }
-}
+};
 
-//Lấy danh sách bạn đã theo dõi
-const getUserFriendsListApi =  async (idUser) => {
+const deleteLikePost = async ({ idUser, idPost }) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+
+  try {
+    const response = await fetch(deleteLikePostUrl + idUser + '/' + idPost, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+};
+
+const getLikePost = async ({ idPost }) => {
   var requestOptions = {
     method: 'GET',
     redirect: 'follow',
   };
   try {
-    console.log(getUsersListUrl + idUser);
-    const response = await fetch(getUserFriendsListUrl + idUser, requestOptions);
+    const response = await fetch(getLikePostUrl + idPost, requestOptions);
     if (!response.ok) {
       throw new Error('Không thể kết nối đến máy chủ');
     }
     const result = await response.json();
-    return result.data;
+    return result.data; // Trả về kết quả cho người gọi hàm
   } catch (error) {
+    // Xử lý lỗi nếu cần
     throw error;
   }
-}
+};
+
+const getPointReview = async ({ idMovie }) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  try {
+    const response = await fetch(getPointReviewUrl + idMovie, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+};
 
 module.exports = {
   LoginApi,
@@ -374,6 +396,11 @@ module.exports = {
   getListSave,
   editSaveList,
   addPost,
+  getPostFriend,
+  addLikePost,
+  deleteLikePost,
+  getLikePost,
+  getPointReview,
   getUsersListApi,
   addFriendApi,
   removeFriendApi,
