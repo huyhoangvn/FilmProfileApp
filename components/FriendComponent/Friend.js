@@ -7,10 +7,10 @@ import { addFriendApi, removeFriendApi } from '../../api/apiApp';
 import { getDataStorage, deleteDataStorage } from '../../config/Storage';
 
 const Friend = function ({ id, hoTen, moTa, ngaySinh, hinhAnh, trangThaiKetBan }) {
-    const [ketBan, setKetBan] = useState((trangThaiKetBan)?"Đã kết bạn":"Chưa kết bạn");
+    const [ketBan, setKetBan] = useState((trangThaiKetBan)?"Đã theo dõi":"Theo dõi");
     const [color, setColor] = useState((trangThaiKetBan)?"#6D736D":"#19AFDF");
     const onPress = () => {
-        if(ketBan == "Đã kết bạn"){
+        if(ketBan == "Đã theo dõi"){
             Alert.alert('Bạn có muốn xóa?', "", [
                 {
                   text: 'Cancel',
@@ -21,7 +21,7 @@ const Friend = function ({ id, hoTen, moTa, ngaySinh, hinhAnh, trangThaiKetBan }
                     const idNguoiDungHienTai = await getDataStorage({ nameData: 'idUser' });
                     await removeFriendApi(id, idNguoiDungHienTai).then(()=>{
                         setColor("#19AFDF");
-                        setKetBan("Chưa kết bạn");
+                        setKetBan("Theo dõi");
                         Alert.alert('Hủy theo dõi thành công');
                     }).catch(()=>{
                         Alert.alert('Hủy theo dõi thất bại');
@@ -40,7 +40,7 @@ const Friend = function ({ id, hoTen, moTa, ngaySinh, hinhAnh, trangThaiKetBan }
                     const idNguoiDungHienTai = await getDataStorage({ nameData: 'idUser' });
                     await addFriendApi(id, idNguoiDungHienTai).then(()=>{
                         setColor("#6D736D");
-                        setKetBan("Đã kết bạn");
+                        setKetBan("Đã theo dõi");
                         Alert.alert('Theo dõi thành công');
                     }).catch(()=>{
                         Alert.alert('Theo dõi thất bại');
