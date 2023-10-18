@@ -21,6 +21,18 @@ var deleteStatusUrl = baseLink + '/api/xoaKhoiDanhSach/';
 var getListSaveUrl = baseLink + '/api/getDanhSach/';
 var editSaveListUrl = baseLink + '/api/suaDanhGia/';
 var addPostUrl = baseLink + '/api/themBaiDang/';
+var getPostFriendUrl = baseLink + '/api/getBaiDangBanBe/';
+var addLikePostUrl = baseLink + '/api/themLike/';
+var deleteLikePostUrl = baseLink + '/api/xoaLike/';
+var getLikePostUrl = baseLink + '/api/getAllLike/';
+var getPointReviewUrl = baseLink + '/api/getDiemDanhGia/';
+var getUsersListUrl = baseLink + '/api/getDanhSachTimNguoiDung/';
+var getUserFriendsListUrl = baseLink + '/api/getDanhSachBanBe/';
+var addFriendUrl = baseLink + '/api/themBanBe/';
+var removeFriendUrl = baseLink + '/api/xoaBanbe/';
+var getFollowMeUrl = baseLink + '/api/getSoLuongTheoDoi/';
+var getFollowerUrl = baseLink + '/api/getSoLuongNguoiTheoDoi/';
+var getPostUserUrl = baseLink + '/api/getBaiDangCaNhan/';
 
 const LoginApi = async ({ userName, password }) => {
   var myHeaders = new Headers();
@@ -254,7 +266,7 @@ const editSaveList = async ({ idUser, idMovie, status, like, point }) => {
   }
 };
 
-const addPost = async ({ idUser, idReview, title, content}) => {
+const addPost = async ({ idUser, idReview, title, content }) => {
   var myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
 
@@ -270,7 +282,7 @@ const addPost = async ({ idUser, idReview, title, content}) => {
     redirect: 'follow',
   };
   try {
-    console.log(addPostUrl + idUser + '/' + idReview,)
+    console.log(addPostUrl + idUser + '/' + idReview);
     const response = await fetch(addPostUrl + idUser + '/' + idReview, requestOptions);
 
     if (!response.ok) {
@@ -280,6 +292,229 @@ const addPost = async ({ idUser, idReview, title, content}) => {
     return result; // Trả về kết quả cho người gọi hàm
   } catch (error) {
     // Xử lý lỗi nếu cần
+    throw error;
+  }
+};
+
+const getPostFriend = async ({ idUser }) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    const response = await fetch(getPostFriendUrl + idUser, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+};
+
+const addLikePost = async ({ idUser, idPost }) => {
+  console.log('sdasdasdasdas  ' + idUser + ' ' + idPost);
+  var requestOptions = {
+    method: 'POST',
+    redirect: 'follow',
+  };
+
+  try {
+    const response = await fetch(addLikePostUrl + idUser + '/' + idPost, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+};
+
+const deleteLikePost = async ({ idUser, idPost }) => {
+  console.log('cccccccccc' + idUser + ' : ' + idPost);
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+
+  try {
+    const response = await fetch(deleteLikePostUrl + idUser + '/' + idPost, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+};
+
+const getLikePost = async ({ idPost }) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    const response = await fetch(getLikePostUrl + idPost, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+};
+
+const getPointReview = async ({ idMovie }) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    const response = await fetch(getPointReviewUrl + idMovie, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data; // Trả về kết quả cho người gọi hàm
+  } catch (error) {
+    // Xử lý lỗi nếu cần
+    throw error;
+  }
+};
+
+
+//Lấy danh sách người dùng
+const getUsersListApi =  async (idUser, tenTimKiem, trang) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    const response = await fetch(getUsersListUrl + idUser + '/' + `?timKiemTen=${tenTimKiem}&trang=${trang}`, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+//Thêm bạn bè vào danh sách
+const removeFriendApi =  async (idTheoDoi, idUser) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    console.log(removeFriendUrl + idUser + '/' + idTheoDoi);
+    const response = await fetch(removeFriendUrl + idUser + '/' + idTheoDoi, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+//Xóa bạn bè khỏi danh sách
+const addFriendApi =  async (idTheoDoi, idUser) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    console.log(addFriendUrl + idTheoDoi + '/' + idUser);
+    const response = await fetch(addFriendUrl + idUser + '/' + idTheoDoi, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+//Lấy danh sách bạn đã theo dõi
+const getUserFriendsListApi =  async (idUser) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    console.log(getUsersListUrl + idUser);
+    const response = await fetch(getUserFriendsListUrl + idUser, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+var getFollowMe = async ({ idUser }) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    console.log(getUsersListUrl + idUser);
+    const response = await fetch(getFollowMeUrl + idUser, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+var getFollower = async ({ idUser }) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    console.log(getUsersListUrl + idUser);
+    const response = await fetch(getFollowerUrl + idUser, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+var getPostUser = async ({ idUser }) => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    const response = await fetch(getPostUserUrl + idUser, requestOptions);
+    if (!response.ok) {
+      throw new Error('Không thể kết nối đến máy chủ');
+    }
+    const result = await response.json();
+    return result.data
+  } catch (error) {
     throw error;
   }
 };
@@ -295,4 +530,16 @@ module.exports = {
   getListSave,
   editSaveList,
   addPost,
+  getPostFriend,
+  addLikePost,
+  deleteLikePost,
+  getLikePost,
+  getPointReview,
+  getUsersListApi,
+  addFriendApi,
+  removeFriendApi,
+  getUserFriendsListApi,
+  getFollowMe,
+  getFollower,
+  getPostUser,
 };

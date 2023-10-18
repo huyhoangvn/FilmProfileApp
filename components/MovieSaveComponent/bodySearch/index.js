@@ -172,7 +172,7 @@ export default function BodySearch({ navigation }) {
           <TouchableOpacity
             style={styles.button2}
             onPress={() => {
-              handlerShare(item._id, item.idNguoiDung, item.hinhAnh, item.tenPhim);
+              handlerShare(item.idNguoiDung, item._id, item.hinhAnh, item.tenPhim);
             }}
           >
             <Text style={styles.buttonText}>Chia sẻ</Text>
