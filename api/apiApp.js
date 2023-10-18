@@ -1,15 +1,16 @@
 import { Platform } from 'react-native';
 
-var baseLink;
-if (Platform.OS === 'ios') {
-  // Code for iOS
-  baseLink = 'http://localhost:3002';
-} else if (Platform.OS === 'android') {
-  // Code for Android
-  baseLink = 'http://10.0.2.2:3002';
-} else {
-  // Code for other platforms
-}
+var baseLink = 'https://gratis-dusty-cabinet.glitch.me'
+// var baseLink
+// if (Platform.OS === 'ios') {
+//   // Code for iOS
+//   baseLink = 'http://localhost:3002';
+// } else if (Platform.OS === 'android') {
+//   // Code for Android
+//   baseLink = 'http://10.0.2.2:3002';
+// } else {
+//   // Code for other platforms
+// }
 
 var loginApiUrl = baseLink + '/dangnhap';
 var registerUrl = baseLink + '/api/themTaiKhoan';
