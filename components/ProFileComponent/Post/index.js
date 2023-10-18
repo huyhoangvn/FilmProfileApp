@@ -89,9 +89,9 @@ const MyPostList = () => {
       <ScrollView contentContainerStyle={{ paddingHorizontal: 1 }}>
         {data.map((item, index) => {
           return (
-            <View style={styles.viewList} key={item.idBaiDang}>
+            <View style={styles.viewList} key={item._id}>
               <View style={styles.header}>
-                <Image style={styles.imageAvatar} source={{ uri: item.hinhAnhBanBe }} />
+                <Image style={styles.imageAvatar} source={{ uri: item.hinhAnh }} />
                 <View style={{ alignSelf: 'center' }}>
                   <Text style={styles.styleTitle}>{item.hoTen}</Text>
                   <Text style={styles.styleContent}>Ngày tạo: {item.ngayTao}</Text>
