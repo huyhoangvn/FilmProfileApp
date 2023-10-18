@@ -392,7 +392,7 @@ const getPointReview = async ({ idMovie }) => {
 
 
 //Lấy danh sách người dùng
-const getUsersListApi = async (idUser, tenTimKiem, trang) => {
+const getUsersListApi =  async (idUser, tenTimKiem, trang) => {
   var requestOptions = {
     method: 'GET',
     redirect: 'follow',
@@ -407,10 +407,10 @@ const getUsersListApi = async (idUser, tenTimKiem, trang) => {
   } catch (error) {
     throw error;
   }
-};
+}
 
 //Thêm bạn bè vào danh sách
-const removeFriendApi = async (idTheoDoi, idUser) => {
+const removeFriendApi =  async (idTheoDoi, idUser) => {
   var requestOptions = {
     method: 'GET',
     redirect: 'follow',
@@ -426,10 +426,10 @@ const removeFriendApi = async (idTheoDoi, idUser) => {
   } catch (error) {
     throw error;
   }
-};
+}
 
 //Xóa bạn bè khỏi danh sách
-const addFriendApi = async (idTheoDoi, idUser) => {
+const addFriendApi =  async (idTheoDoi, idUser) => {
   var requestOptions = {
     method: 'GET',
     redirect: 'follow',
@@ -445,10 +445,10 @@ const addFriendApi = async (idTheoDoi, idUser) => {
   } catch (error) {
     throw error;
   }
-};
+}
 
 //Lấy danh sách bạn đã theo dõi
-const getUserFriendsListApi = async (idUser) => {
+const getUserFriendsListApi =  async (idUser) => {
   var requestOptions = {
     method: 'GET',
     redirect: 'follow',
@@ -464,7 +464,7 @@ const getUserFriendsListApi = async (idUser) => {
   } catch (error) {
     throw error;
   }
-};
+}
 
 var getFollowMe = async ({ idUser }) => {
   var requestOptions = {
