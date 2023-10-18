@@ -9,14 +9,11 @@ import { image185 } from '../api/flimsDB';
 import { getDataStorage } from '../config/Storage';
 import { LinearGradient } from 'expo-linear-gradient';
 
-// const uid = getDataStorage({nameData: 'idUser'})
-
-//Header
 function Header({ navigation }) {
   return (
     <View style={styles.headercontainer}>
       <View style={styles.headerTitleContainer}>
-        <Text style={styles.headerTitle}>Bài đăng bạn bè</Text>
+        <Text style={styles.headerTitle}>Bài đăng người theo dõi</Text>
       </View>
       <View style={styles.headerIcon}>
         <TouchableOpacity
@@ -31,75 +28,62 @@ function Header({ navigation }) {
   );
 }
 
-//Main
 export default function FriendPage({ navigation }) {
   const [data, setData] = useState([]);
-  const [liked, setLiked] = useState({});
-  const [dataLiked, setDataLiked] = useState([]);
-  const [dataPoint,setDataPoint] = useState();
+  const [likes, setLikes] = useState({}); // Sử dụng một đối tượng để lưu dữ liệu likes
+  const [points, setPoints] = useState({}); // Sử dụng một đối tượng để lưu dữ liệu điểm đánh giá
 
   const getDataApi = async () => {
-    const idUser = await getDataStorage({ nameData: 'idUser' })
+    const idUser = await getDataStorage({ nameData: 'idUser' });
     try {
       const details = await getPostFriend({
-        idUser: '6523a07b075e06d97c19dda0',
+        idUser: idUser,
       });
       setData(details);
+
+      const likesData = {};
+      const pointsData = {};
+
+      for (const item of details) {
+        const result = await getLikePost({ idPost: item.idBaiDang });
+        likesData[item.idBaiDang] = result;
+
+        const pointResult = await getPointReview({ idMovie: item.idPhim });
+        pointsData[item.idBaiDang] = pointResult.ketQuaDanhGia;
+      }
+
+      setLikes(likesData);
+      setPoints(pointsData);
     } catch (error) {
-      // Xử lý lỗi khi gọi API lấy dữ liệu
+      console.log('lỗi data mẹ rồi' + error);
     }
   };
-
-  const getLikeData = async () => {
-    data.map(async (item) => {
-      const result = await getLikePost({ idPost: item.idBaiDang });
-      setDataLiked(result);
-      console.log('aaaaa' + result);
-    });
-  };
-
-  const getPointData = async () => {
-    data.map(async (item) => {
-      const result = await getPointReview({ idMovie: item.idPhim });
-      setDataPoint(result.ketQuaDanhGia);
-    });
-  }
 
   useEffect(() => {
     getDataApi();
-  }, [dataPoint]);
+  }, []);
 
-  useEffect(() => {
-    getLikeData();
-  });
-
-  // useEffect(() => {
-  //     getPointData();
-  // },[dataPoint]);
-
-  useFocusEffect(
-    React.useCallback(() => {
-      getPointData();
-    }, [])
-  );
-
-
-  const handleLike = async (idUser, idPost) => {
-    if (!liked[idPost]) {
+  const handleLike = async (idPost) => {
+    const idUser = await getDataStorage({ nameData: 'idUser' });
+    if (!likes[idPost]) {
       // Nếu chưa like, gọi hàm addLikePost
       await addLikePost({ idUser: idUser, idPost: idPost });
-      getLikeData();
+
+      // Cập nhật trạng thái liked của mục và màu của biểu tượng like
+      setLikes((prevLikes) => ({
+        ...prevLikes,
+        [idPost]: 1,
+      }));
     } else {
       // Nếu đã like, gọi hàm deleteLikePost
       await deleteLikePost({ idUser: idUser, idPost: idPost });
-      getLikeData();
-    }
 
-    // Cập nhật trạng thái liked của mục và màu của biểu tượng like
-    setLiked((prevLiked) => ({
-      ...prevLiked,
-      [idPost]: !prevLiked[idPost],
-    }));
+      // Cập nhật trạng thái liked của mục và màu của biểu tượng like
+      setLikes((prevLikes) => ({
+        ...prevLikes,
+        [idPost]: 0,
+      }));
+    }
   };
 
   return (
@@ -110,13 +94,9 @@ export default function FriendPage({ navigation }) {
       <ScrollView contentContainerStyle={{ paddingHorizontal: 1 }}>
         {data.map((item, index) => {
           return (
-            <View style={styles.viewList}>
+            <View style={styles.viewList} key={item.idBaiDang}>
               <View style={styles.header}>
-                <Image
-                  style={styles.imageAvatar}
-                  // source={require('../assets/images/castImage1.png')}
-                  source={{ uri: item.hinhAnhBanBe }}
-                />
+                <Image style={styles.imageAvatar} source={{ uri: item.hinhAnhBanBe }} />
                 <View style={{ alignSelf: 'center' }}>
                   <Text style={styles.styleTitle}>{item.hoTenBanBe}</Text>
                   <Text style={styles.styleContent}>Ngày tạo: {item.ngayTao}</Text>
@@ -140,7 +120,7 @@ export default function FriendPage({ navigation }) {
                         left: 0,
                         right: 0,
                         height: 44,
-                        borderRadius: 5, // Điều chỉnh chiều cao của gradient theo mong muốn
+                        borderRadius: 5,
                       }}
                     />
                   </View>
@@ -151,16 +131,22 @@ export default function FriendPage({ navigation }) {
                 <View style={styles.leftIconContainer}>
                   <TouchableOpacity
                     onPress={() => {
-                      handleLike('6523a07b075e06d97c19dda0', item.idBaiDang); // Truyền id hoặc thuộc tính duy nhất đại diện cho mục
+                      handleLike(item.idBaiDang);
                     }}
                   >
-                    <Icon name="thumbs-up" size={20} color={dataLiked === 1 ? '#19AFDF' : 'white'} />
+                    <Icon name="thumbs-up" size={20} color={likes[item.idBaiDang] === 1 ? '#19AFDF' : 'white'} />
                   </TouchableOpacity>
-                  <Text style={styles.iconText}>{dataLiked}</Text>
+                  <Text style={styles.iconText}>{likes[item.idBaiDang]}</Text>
                 </View>
                 <View style={styles.rightIconContainer}>
-                  <Text style={styles.iconText2}>{dataPoint}</Text>
-                  <Icon name="star" size={20} color="#FFA800" />
+                  {points[item.idBaiDang] === -1 ? (
+                      <Icon name="star" size={20} color="#FFA800" />
+                  ) : (
+                    <React.Fragment>
+                      <Text style={styles.iconText2}>{points[item.idBaiDang]}</Text>
+                      <Icon name="star" size={20} color="#FFA800" />
+                    </React.Fragment>
+                  )}
                 </View>
               </View>
 
@@ -180,7 +166,6 @@ export default function FriendPage({ navigation }) {
     </SafeAreaView>
   );
 }
-
 //Styles
 const styles = StyleSheet.create({
   container: {
@@ -279,12 +264,12 @@ const styles = StyleSheet.create({
   iconText: {
     color: 'white',
     marginLeft: 5,
-    marginTop: 4 // Add margin between icon and text
+    marginTop: 4, // Add margin between icon and text
   },
   iconText2: {
     color: 'white',
     marginRight: 5,
-    marginTop: 4
+    marginTop: 4,
     // Add margin between icon and text
   },
 });

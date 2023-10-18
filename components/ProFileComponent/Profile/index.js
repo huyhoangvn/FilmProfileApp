@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/FontAwesome'; // Chọn một tên biểu tượng từ thư viện
-import { LoginApi, getInfor } from '../../../api/apiApp';
+import { LoginApi, getInfor,getFollowMe,getFollower} from '../../../api/apiApp';
 import { getDataStorage, deleteDataStorage } from '../../../config/Storage';
 import { Asset } from 'expo-asset';
 export default function Profile({ navigation,refreshing}) {
@@ -16,8 +16,9 @@ export default function Profile({ navigation,refreshing}) {
   const [followerUser, setFollowerUser] = useState('');
   const [follow, setFollow] = useState('');
 
+ 
 
-  const getUserInfor = async () => {
+  const getDaTa = async () => {
     // if (refreshing) {
       const idUser = await getDataStorage({ nameData: 'idUser' });
       const result = await getInfor({ id: idUser });
@@ -26,6 +27,18 @@ export default function Profile({ navigation,refreshing}) {
       var bird = result.ngaySinh;
       var sex = result.gioiTinh === 1 ? 'Nữ' : 'Nam';
       var introduce = result.moTa;
+
+      const followMe = await getFollowMe({idUser: idUser})
+      const follower = await getFollower({idUser: idUser})
+      followMe.map((item, index) => {
+        setFollowerUser(item.SoLuongTheoDoi)
+      })
+      follower.map((item, index) => {
+        setFollow(item.SoLuongNguoiTheoDoi)
+      })
+      // setFollowerUser(followMe)
+      // setFollow(follower)
+      
 
       setAvartaUser(avatar);
       setNameUser(name);
@@ -36,12 +49,12 @@ export default function Profile({ navigation,refreshing}) {
   // };
 
   useEffect(() => {
-    getUserInfor();
+    getDaTa();
   }, []);
 
   useFocusEffect(
     React.useCallback(() => {
-      getUserInfor()
+      getDaTa()
     }, [])
   );
 
@@ -68,8 +81,8 @@ export default function Profile({ navigation,refreshing}) {
         <Text style={{ marginTop: 10, color: 'white', fontSize: 15 }}>{introduceUser}</Text>
 
         <View style={styles.viewFollow}>
-          <Text style={styles.textFollow}>98 đang theo dõi</Text>
-          <Text style={styles.textFollow}>69 người theo dõi</Text>
+          <Text style={styles.textFollow}>{followerUser} đang theo dõi</Text>
+          <Text style={styles.textFollow}>{follow} người theo dõi</Text>
         </View>
       </View>
     </View>

@@ -47,6 +47,9 @@ function Header({ navigation }) {
 export default function ShareScreen({ navigation }) {
   const route = useRoute();
   const { idUser, idReview, imageMovie, nameMovie } = route.params;
+  console.log('idUser: ' + idUser )
+  console.log('idReview: ' + idReview )
+
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
 

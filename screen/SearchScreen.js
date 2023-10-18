@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text, Image, Button, TouchableOpacity, SafeAreaView } from 'react-native';
 import React, { useState } from 'react';
 import { getMovieTrending } from '../api/flimsDB';
-import Header from '../components/DetailComponents/Header';
+import Header from '../components/SearchComponent/Header';
 import BodySearch from '../components/SearchComponent/bodySearch';
 
 
