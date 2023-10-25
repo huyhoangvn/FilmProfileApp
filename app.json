@@ -15,22 +15,29 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.hoangnhph29211.FilmProfileApp"
+      "package": "com.hoangnhph29211.FilmProfileApp",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "99aeee11-87ea-45bd-8514-196595ef4f12"
+        "projectId": "c8712923-97bb-42bb-a6e3-4e96ecb8ad1d"
       }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/c8712923-97bb-42bb-a6e3-4e96ecb8ad1d"
     }
   }
 }
