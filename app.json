@@ -20,9 +20,9 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff",
-        "softwareKeyboardLayoutMode": "pan"
-      }
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.hoangnhph29211.FilmProfileApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
