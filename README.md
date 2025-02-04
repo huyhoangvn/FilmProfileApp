@@ -2,7 +2,7 @@
 Ứng dụng là phần mềm mạng xã hội giúp người dùng chia sẻ những đánh giá phim cho bạn bè và cập nhật những thông tin về phim hiện đang nổi trội hiện nay.<br>
 
 1.<br>
-Công cụ và công nghệ sử dụng:<br>
+Công cụ và công nghệ sử dụng :<br>
 +React Native thiết kế client app<br>
 +Nodejs, Mongodb thiết kế server và tạo hệ cơ sở dữ liệu<br>
 +Glitch.comm để host server.<br>
